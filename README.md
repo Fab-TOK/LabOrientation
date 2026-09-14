@@ -24,7 +24,7 @@ npm run dev
 ## Structure
 
 ```
-app/(site)/        les sept pages publiques, avec header, footer et barre collante
+app/(site)/        les sept pages publiques, avec header et footer
 app/reserver/      le tunnel de réservation, header simplifié et état partagé
 app/api/           disponibilités, réservation, contact
 components/        layout, ui (kit), home, offres, faq, contact, testimonials, reserver
