@@ -79,9 +79,21 @@ describe("contactSchema", () => {
       contactSchema.safeParse({ ...validContact, formula: "je-ne-sais-pas-encore" }).success,
     ).toBe(true);
     expect(
-      contactSchema.safeParse({ ...validContact, formula: "formation-aux-professionnels" })
-        .success,
+      contactSchema.safeParse({ ...validContact, formula: "module-parcoursup" }).success,
     ).toBe(true);
+  });
+
+  it("refuse les formules retirées de la gamme", () => {
+    for (const slug of [
+      "ateliers-collectifs",
+      "bilan-d-orientation",
+      "parcours-complet",
+      "formation-aux-professionnels",
+      "premier-pas",
+    ]) {
+      const result = contactSchema.safeParse({ ...validContact, formula: slug });
+      expect(result.success, `« ${slug} » ne devrait plus être accepté`).toBe(false);
+    }
   });
 
   it("refuse un pays hors liste", () => {

@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   title: "Qui suis-je ?",
   description:
     "Johana Ghionda, conseillère d’orientation et fondatrice de Lab’Orientation : un parcours international, une expertise de l’orientation et une connaissance du monde professionnel.",
+  alternates: { canonical: routes.about },
 };
 
 const bodyParagraph =

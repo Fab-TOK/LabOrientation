@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactSidebar } from "@/components/contact/ContactSidebar";
+import { routes } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Prenons contact",
   description:
     "Élève, parent ou institution : décrivez votre situation et convenons d’une séance de mise en contact de 30 minutes, offerte et sans engagement.",
+  alternates: { canonical: routes.contact },
 };
 
 export default function ContactPage() {

@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { countries } from "@/content/countries";
-import { contactFormulaOptions, UNDECIDED_FORMULA_LABEL } from "@/content/formulas";
+import {
+  contactFormulaOptions,
+  UNDECIDED_FORMULA,
+  UNDECIDED_FORMULA_LABEL,
+} from "@/content/formulas";
 import { contactTypes, formatLabels, levelLabels } from "@/content/form-options";
 import { site } from "@/content/site";
 import { getMailer, INBOX } from "@/lib/mailer";
@@ -65,7 +69,7 @@ function label(options: readonly { value: string; label: string }[], value: stri
 
 function formulaLabel(slug: string | undefined) {
   if (!slug) return "non renseigné";
-  if (slug === "je-ne-sais-pas-encore") return UNDECIDED_FORMULA_LABEL;
+  if (slug === UNDECIDED_FORMULA) return UNDECIDED_FORMULA_LABEL;
   return contactFormulaOptions.find((option) => option.slug === slug)?.label ?? slug;
 }
 

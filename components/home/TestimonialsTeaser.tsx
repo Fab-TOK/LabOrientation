@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { InitialCircle } from "@/components/ui/Bits";
 import { routes } from "@/content/site";
 import { testimonialExcerpts } from "@/content/testimonials";
 
@@ -29,13 +30,11 @@ export function TestimonialsTeaser() {
                 {testimonial.excerpt.quote}
               </p>
               <div className="mt-5 flex items-center gap-3 nav:mt-[22px] nav:gap-[13px]">
-                <span
-                  className="size-10 flex-none rounded-full nav:size-[42px]"
-                  style={{
-                    background:
-                      "repeating-linear-gradient(135deg,rgba(251,247,240,.2),rgba(251,247,240,.2) 5px,rgba(251,247,240,.07) 5px,rgba(251,247,240,.07) 10px)",
-                  }}
-                  aria-hidden="true"
+                {/* Même traitement pour les trois : sur l’ardoise, les teintes de la
+                    page Témoignages ne tiennent pas toutes. */}
+                <InitialCircle
+                  letter={testimonial.initial}
+                  className="size-10 border border-cream/25 bg-cream/14 text-[17px]/none text-cream nav:size-[42px] nav:text-[18px]"
                 />
                 <div>
                   <div className="text-[13.5px]/[1.2] font-semibold nav:text-[14px]">

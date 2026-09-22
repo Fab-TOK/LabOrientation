@@ -169,7 +169,9 @@ export function ContactForm() {
         </div>
 
         <SubLabel className="mt-7">L’accompagnement qui vous intéresse</SubLabel>
-        <div className="mt-3 grid gap-[10px] sm:grid-cols-2 nav:grid-cols-3">
+        {/* Deux colonnes : six offres, plus la tuile « je ne sais pas » en
+            pleine largeur. La grille à trois colonnes était calibrée pour dix. */}
+        <div className="mt-3 grid gap-[10px] sm:grid-cols-2">
           {contactFormulaOptions.map((option) => (
             <ChoiceTile
               key={option.slug}
@@ -187,7 +189,7 @@ export function ContactForm() {
             checked={values.formula === UNDECIDED_FORMULA}
             onChange={set("formula")}
             dashed
-            className="sm:col-span-2 nav:col-span-2"
+            className="sm:col-span-2"
           >
             {UNDECIDED_FORMULA_LABEL}
           </ChoiceTile>

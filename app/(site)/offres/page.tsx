@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Bits";
-import { FormulaCard } from "@/components/offres/FormulaCard";
-import { formulaFamilies } from "@/content/formulas";
+import { OfferCard } from "@/components/offres/OfferCard";
+import { RecapTable } from "@/components/offres/RecapTable";
+import { offerFamilies, recap } from "@/content/formulas";
 import { routes, site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Nos offres",
   description:
-    "Neuf formules d’accompagnement en trois familles : se connaître et s’orienter, construire et sécuriser le projet, candidatures et ateliers. Tout commence par un échange gratuit de 30 minutes.",
+    "Trois parcours d’accompagnement selon le niveau du jeune, de la 4ᵉ à la Terminale, et trois modules complémentaires : CV, lettre de motivation, Parcoursup. Tout commence par un échange gratuit de 30 minutes.",
+  alternates: { canonical: routes.offers },
 };
 
 const howItWorks = [
@@ -24,13 +26,12 @@ export default function OffersPage() {
         <div>
           <Eyebrow>Nos offres</Eyebrow>
           <h1 className="t-h1-page mt-3 max-w-[20ch] nav:mt-4 nav:text-[58px]/[1.04]">
-            Neuf façons d’avancer, une seule porte d’entrée
+            Des parcours adaptés à chaque étape
           </h1>
           <p className="mt-4 max-w-[56ch] text-[14.5px]/[1.7] text-slate/78 text-pretty nav:mt-5 nav:text-[17px]">
-            Chaque accompagnement est construit autour d’un profil, d’un rythme et
-            d’objectifs. Aucune formule ne se choisit à l’aveugle : tout commence par un
-            échange gratuit de 30 minutes. Les neuf formules sont regroupées ci-dessous en
-            trois familles : vous n’en choisissez qu’une.
+            Trois parcours selon le niveau du jeune, trois modules pour un besoin précis.
+            Aucune formule ne se choisit à l’aveugle : tout commence par un échange gratuit
+            de 30 minutes.
           </p>
         </div>
 
@@ -78,23 +79,33 @@ export default function OffersPage() {
       </section>
 
       <div className="gutter pt-7 pb-8 nav:pt-0 nav:pb-14">
-        {formulaFamilies.map((family, index) => (
-          <section key={family.number} className={index > 0 ? "mt-9 nav:mt-13" : ""}>
-            <div className="flex items-baseline gap-[14px] border-b border-slate/16 pb-3">
-              <span className="t-eyebrow text-turquoise">{family.number}</span>
-              <h2 className="font-serif text-[24px]/[1.2] nav:text-[30px]">{family.title}</h2>
-              <span className="ml-auto hidden rounded-full bg-peach px-[13px] py-[7px] text-[11.5px]/none font-bold tracking-[0.04em] text-slate uppercase nav:inline-block">
-                3 formules
-              </span>
-            </div>
+        {offerFamilies.map((family, index) => (
+          <section key={family.number} className={index > 0 ? "mt-9 nav:mt-14" : ""}>
+            <FamilyHeading number={family.number} title={family.title} note={family.note} />
 
-            <ul className="mt-5 grid gap-4 nav:mt-[26px] md:grid-cols-2 nav:grid-cols-3 nav:gap-[22px]">
-              {family.formulas.map((formula) => (
-                <FormulaCard key={formula.slug} formula={formula} />
+            <p className="mt-4 max-w-[74ch] text-[14.5px]/[1.7] text-slate/75 text-pretty nav:mt-[18px] nav:text-[15.5px]">
+              {family.intro}
+            </p>
+
+            {/* `items-start` : chaque carte garde sa hauteur propre, une carte
+                dépliée n’entraîne pas ses voisines.
+
+                Trois colonnes seulement à partir de `xl`, la largeur du design.
+                À 900 px elles ne laissaient que 22 caractères par ligne au
+                paragraphe, et l’en-tête n’avait plus la place de tenir le badge
+                et la pastille de niveau côte à côte. */}
+            <ul className="mt-5 grid items-start gap-4 nav:mt-7 nav:gap-[22px] md:grid-cols-2 xl:grid-cols-3">
+              {family.offers.map((offer) => (
+                <OfferCard key={offer.slug} offer={offer} />
               ))}
             </ul>
           </section>
         ))}
+
+        <section className="mt-9 nav:mt-14">
+          <FamilyHeading number={recap.number} title={recap.title} />
+          <RecapTable />
+        </section>
       </div>
 
       <section className="bg-slate text-cream">
@@ -115,6 +126,28 @@ export default function OffersPage() {
         </div>
       </section>
     </>
+  );
+}
+
+function FamilyHeading({
+  number,
+  title,
+  note,
+}: {
+  number: string;
+  title: string;
+  note?: string;
+}) {
+  return (
+    <div className="flex items-center gap-[14px] border-b border-slate/16 pb-3">
+      <span className="pill-num flex-none">{number}</span>
+      <h2 className="font-serif text-[24px]/[1.2] nav:text-[30px]">{title}</h2>
+      {note && (
+        <span className="ml-auto hidden rounded-full bg-slate px-4 py-[9px] text-[12px]/none font-bold tracking-[0.03em] text-cream nav:inline-block">
+          {note}
+        </span>
+      )}
+    </div>
   );
 }
 

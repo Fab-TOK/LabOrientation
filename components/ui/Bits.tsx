@@ -1,5 +1,6 @@
+import { Fragment } from "react";
 import { cn } from "@/lib/cn";
-import type { Formula } from "@/content/formulas";
+import type { AudienceLabel } from "@/content/formulas";
 
 /** Surtitre de section, en capitales terracotta. */
 export function Eyebrow({
@@ -40,15 +41,40 @@ export function NumberPill({
   );
 }
 
-/** Titre de formule, avec exposant quand le libellé en comporte un. */
-export function FormulaTitle({ formula }: { formula: Formula }) {
-  if (!formula.titleSup) return <>{formula.title}</>;
-  const { lead, sup, rest } = formula.titleSup;
+/**
+ * Cercle d’initiale des témoignages. La teinte et la taille viennent de
+ * `className` ; seul le centrage optique est ici, pour qu’il ne vive qu’à un
+ * endroit (voir `.avatar-initial` dans `globals.css`).
+ *
+ * Masqué aux lecteurs d’écran : le nom complet suit toujours, juste à côté.
+ */
+export function InitialCircle({ letter, className }: { letter: string; className?: string }) {
+  return (
+    <span
+      className={cn(
+        "avatar-initial flex flex-none items-center justify-center rounded-full font-serif",
+        className,
+      )}
+      aria-hidden="true"
+    >
+      {letter}
+    </span>
+  );
+}
+
+/** Public visé, avec ses ordinaux en exposant : « 4ᵉ et 3ᵉ », « 2ⁿᵈᵉ ». */
+export function Audience({ label }: { label: AudienceLabel }) {
   return (
     <>
-      {lead}
-      <sup className="align-super text-[0.55em]">{sup}</sup>
-      {rest}
+      {label.map((segment, index) =>
+        typeof segment === "string" ? (
+          <Fragment key={index}>{segment}</Fragment>
+        ) : (
+          <sup key={index} className="ord">
+            {segment.sup}
+          </sup>
+        ),
+      )}
     </>
   );
 }

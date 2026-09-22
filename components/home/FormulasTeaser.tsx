@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/Button";
-import { Eyebrow, FormulaTitle } from "@/components/ui/Bits";
-import { featuredFormulas } from "@/content/formulas";
+import { Audience, Eyebrow } from "@/components/ui/Bits";
+import { parcours } from "@/content/formulas";
 import { routes, site } from "@/content/site";
 
 export function FormulasTeaser() {
@@ -13,23 +13,30 @@ export function FormulasTeaser() {
           <h2 className="t-h2 mt-3 nav:mt-[14px]">Par où commencer</h2>
         </div>
         <p className="t-body mt-3 max-w-[40ch] text-slate/72 nav:mt-0 nav:mb-[6px]">
-          Trois formules parmi les neuf proposées. On choisit celle qui correspond à votre
-          situation, une seule suffit.
+          Trois parcours selon le niveau du jeune, complétés si besoin par des modules CV,
+          lettre de motivation ou Parcoursup.
         </p>
       </div>
 
-      <ul className="mt-[18px] grid gap-3 nav:mt-[34px] md:grid-cols-2 nav:grid-cols-3 nav:gap-[22px]">
-        {featuredFormulas.map((formula, index) => (
-          <li key={formula.slug} className="card card-link flex flex-col p-[22px] nav:p-[30px]">
-            <span className="badge-formule text-[11.5px] nav:text-[12px]">
-              Formule {index + 1}
-            </span>
+      {/* Trois colonnes à partir de `xl` seulement : voir la grille de la page
+          Offres, mêmes cartes et même contrainte de largeur. */}
+      <ul className="mt-[18px] grid gap-3 nav:mt-[34px] nav:gap-[22px] md:grid-cols-2 xl:grid-cols-3">
+        {parcours.map((offer) => (
+          <li key={offer.slug} className="card card-link flex flex-col p-[22px] nav:p-[30px]">
+            {/* Garde-fou : si un libellé s’allonge, la pastille descend d’une
+                ligne au lieu d’écraser le badge, qui ne se coupe jamais. */}
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+              <span className="badge-formule text-[11.5px] nav:text-[12px]">{offer.badge}</span>
+              <span className="badge-level">
+                <Audience label={offer.audience} />
+              </span>
+            </div>
             <h3 className="t-card-title mt-[14px] font-serif nav:mt-[18px] nav:text-[28px]">
-              <FormulaTitle formula={formula} />
+              {offer.title}
             </h3>
-            <p className="t-body mt-[10px] flex-1 text-slate/75 nav:mt-3">{formula.teaser}</p>
+            <p className="t-body mt-[10px] flex-1 text-slate/75 nav:mt-3">{offer.description}</p>
             <Link
-              href={`${routes.offers}#${formula.slug}`}
+              href={`${routes.offers}#${offer.slug}`}
               className="mt-[14px] text-[14px]/none font-semibold text-slate nav:mt-[22px] nav:border-t nav:border-slate/12 nav:pt-[18px]"
             >
               En savoir plus <span aria-hidden="true">→</span>
@@ -39,7 +46,7 @@ export function FormulasTeaser() {
       </ul>
 
       <Link href={routes.offers} className="link-underline mt-4 text-[14px] nav:mt-5">
-        Voir les neuf accompagnements <span aria-hidden="true">→</span>
+        Voir tous les accompagnements <span aria-hidden="true">→</span>
       </Link>
 
       <FreeSessionBanner />

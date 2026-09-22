@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "Ma vision de l’orientation",
   description:
     "Une orientation réussie repose sur l’équilibre de trois dimensions : les aspirations, les aptitudes et la réalité des parcours.",
+  alternates: { canonical: routes.vision },
 };
 
 export default function VisionPage() {

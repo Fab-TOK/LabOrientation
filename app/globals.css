@@ -363,10 +363,28 @@
     display: inline-flex;
     align-items: center;
     align-self: flex-start;
+    white-space: nowrap;
     padding: 8px 16px;
     border-radius: 999px;
     background: var(--color-turquoise);
     color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Variante des modules : turquoise dilué, texte ardoise. */
+  .badge-module {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    white-space: nowrap;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: --alpha(var(--color-turquoise) / 16%);
+    color: var(--color-slate);
     font-weight: 700;
     font-size: 12px;
     line-height: 1;
@@ -387,6 +405,46 @@
     line-height: 1;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+  }
+
+  /* Ordinal français en exposant : le « ᵉ » de 4ᵉ, le « ʳᵉ » de 1ʳᵉ.
+     `vertical-align: super` monte trop haut et agrandit la boîte de ligne ;
+     un décalage relatif se règle au centième et ne déplace rien. */
+  .ord {
+    font-size: 0.72em;
+    vertical-align: baseline;
+    position: relative;
+    top: -0.25em;
+  }
+
+  /* Pastille de public. Comme `.badge-peach`, mais sans capitales ni
+     interlettrage : elle porte des ordinaux (« 4ᵉ et 3ᵉ »), pas un libellé.
+
+     Surtout pas `inline-flex` : le libellé porte un `<sup>`, et chaque enfant
+     d’un conteneur flex devient un élément à part. L’espace avant « et » est
+     alors mangé — « 1ʳᵉet Terminale » — et le `<sup>`, blockifié, hérite du
+     `line-height: 0` que le reset pose sur `sup` : boîte de hauteur nulle, donc
+     ni ligne de base ni surbrillance de sélection. Le flux inline règle les deux. */
+  .badge-level {
+    display: inline-block;
+    white-space: nowrap;
+    flex: none;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: var(--color-peach);
+    color: var(--color-slate);
+    font-weight: 700;
+    font-size: 12.5px;
+    line-height: 1;
+  }
+
+  /* Cercle d’initiale des témoignages. Flexbox centre la boîte de ligne, pas la
+     lettre : Newsreader réserve 0,265 em sous la ligne de base pour les jambages,
+     qu’une capitale n’a pas, et la lettre remonte d’autant. Le `padding` rétrécit
+     la boîte de contenu, donc redescend son centre de la moitié de sa valeur.
+     Dérivé des métriques réelles : (capitale − ascendante + descendante) / 2. */
+  .avatar-initial {
+    padding-top: 0.218em;
   }
 
   .pill-num {

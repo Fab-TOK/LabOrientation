@@ -3,6 +3,8 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow, NumberPill } from "@/components/ui/Bits";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { FaqNav } from "@/components/faq/FaqNav";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqPage } from "@/content/structured-data";
 import { faqSections } from "@/content/faq";
 import { routes } from "@/content/site";
 
@@ -10,11 +12,16 @@ export const metadata: Metadata = {
   title: "Questions fréquentes",
   description:
     "À qui s’adresse Lab’Orientation, comment se déroule un accompagnement, en quelle langue, à quel tarif : les réponses aux questions les plus posées.",
+  alternates: { canonical: routes.faq },
 };
 
 export default function FaqPage() {
+  /* Nul tant qu’aucune réponse n’est rédigée — on ne balise pas du vide. */
+  const structuredData = faqPage();
+
   return (
     <>
+      {structuredData && <JsonLd data={structuredData} />}
       <section className="gutter border-b border-slate/10 pt-7 pb-6 nav:pt-[60px] nav:pb-10">
         <Eyebrow>Questions fréquentes</Eyebrow>
         <h1 className="t-h1-page mt-3 max-w-[22ch] nav:mt-4 nav:text-[58px]/[1.04]">

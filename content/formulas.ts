@@ -1,155 +1,268 @@
 /**
- * Les neuf formules, réparties en trois familles.
+ * Les six offres, réparties en deux familles : trois parcours par niveau et
+ * trois modules complémentaires.
  *
  * Règle explicite de la cliente : aucun prix ne figure sur les fiches.
- * Les tarifs planchers vivent dans `site.pricing` et n’apparaissent que
- * sur les bandeaux ardoise.
+ *
+ * Les trois paragraphes `description` sont fournis par la cliente et repris
+ * mot pour mot. NE PAS LES RÉÉCRIRE. Les modules n’en ont pas : le design ne
+ * leur donne qu’une ligne d’accroche.
  */
 
-export type FormulaTone = "light" | "slate" | "peach";
+/**
+ * Public visé, avec ses ordinaux en exposant.
+ * « 4ᵉ et 3ᵉ » s’écrit `["4", sup("e"), " et 3", sup("e")]`.
+ */
+export type AudienceLabel = (string | { sup: string })[];
 
-export type Formula = {
+export const sup = (text: string) => ({ sup: text });
+
+export type OfferKind = "parcours" | "module";
+
+export type OfferStat = { label: string; value: string };
+
+export type Offer = {
   slug: string;
-  /** Libellé simple, utilisé dans les listes et les formulaires. */
+  /** Commande le style du badge, la pastille de public et le libellé du bouton. */
+  kind: OfferKind;
+  /** Badge turquoise : « Parcours 1 », « Module ». */
+  badge: string;
+  /** Pastille pêche des parcours, et colonne « Public » du tableau pour tous. */
+  audience: AudienceLabel;
   title: string;
-  /** Titre à exposant, quand le libellé en comporte un (« 1ᵉʳ pas »). */
-  titleSup?: { lead: string; sup: string; rest: string };
-  /** Version courte, cartes « Par où commencer » de l’accueil. */
-  teaser?: string;
-  /** Version longue, fiches de la page Nos offres. */
-  description: string;
-  tone: FormulaTone;
-  /** Pastille d’angle, sur la seule formule mise en avant. */
-  highlight?: string;
+  /** Ligne terracotta sous le titre. */
+  tagline: string;
+  /** Parcours seulement. Sert aussi aux cartes de l’accueil. */
+  description?: string;
+  /** Pied de carte, deux blocs séparés par un filet. */
+  stats: [OfferStat, OfferStat];
+  /** Dépliant, replié par défaut. */
+  detail: { label: string; items: string[] };
+  cta: string;
+  /** Une seule carte porte la bordure ardoise épaisse. */
+  featured?: true;
+  /** Colonne « Durée » du tableau récapitulatif. */
+  recapDuration: string;
+  /** Nom complet, hors de sa famille : formulaire de contact et tableau. */
+  fullName?: string;
 };
 
-export type FormulaFamily = {
+export type OfferFamily = {
   number: string;
   title: string;
-  formulas: Formula[];
+  /** Pastille ardoise en bout de ligne de titre. */
+  note: string;
+  intro: string;
+  offers: Offer[];
 };
 
-export const formulaFamilies: FormulaFamily[] = [
+export const offerFamilies: OfferFamily[] = [
   {
     number: "01",
-    title: "Se connaître et s’orienter",
-    formulas: [
+    title: "Les parcours",
+    note: "En présentiel ou en visioconférence",
+    intro:
+      "Choisissez le parcours qui vous convient le mieux. Les modules viennent le compléter si besoin.",
+    offers: [
       {
-        slug: "premier-pas",
-        title: "1er pas",
-        titleSup: { lead: "1", sup: "er", rest: " pas" },
-        teaser:
-          "Pour commencer à avancer, sans avoir besoin d’avoir déjà un projet. On pose la situation, on met des mots sur les doutes, et on identifie la première marche.",
+        slug: "premiers-pas",
+        kind: "parcours",
+        badge: "Parcours 1",
+        audience: ["4", sup("e"), " et 3", sup("e")],
+        title: "Premiers Pas",
+        tagline: "Commencer à explorer son orientation",
         description:
-          "Pour commencer à avancer, sans avoir besoin d’avoir déjà un projet. On pose la situation, on met des mots sur ce qui bloque, et on repart avec une première direction de travail.",
-        tone: "light",
+          "Un accompagnement pour aider le jeune à mieux se connaître, découvrir les possibilités qui s’offrent à lui et commencer à faire émerger ses premières pistes.",
+        stats: [
+          { label: "Séances", value: "3 × 1h" },
+          { label: "Durée totale", value: "3 heures" },
+        ],
+        detail: {
+          label: "Le détail des séances",
+          items: [
+            "Séance 1 : Mieux se connaître",
+            "Séance 2 : Explorer les métiers et les filières",
+            "Séance 3 : Faire le point et se projeter",
+          ],
+        },
+        cta: "Demander cette formule",
+        featured: true,
+        recapDuration: "3 × 1h",
       },
       {
         slug: "cap-sur-soi",
+        kind: "parcours",
+        badge: "Parcours 2",
+        audience: ["2", sup("nde")],
         title: "Cap sur soi",
-        teaser:
-          "Parce qu’une spécialité ne devrait pas être choisie parce qu’elle semble facile, populaire ou recommandée par d’autres. Un travail sur les forces réelles du jeune.",
+        tagline: "Se connaître pour mieux choisir ses spécialités",
         description:
-          "Parce qu’une spécialité ne devrait pas être choisie parce qu’elle semble facile, populaire ou recommandée par d’autres. Un travail sur la personnalité, les forces réelles et les centres d’intérêt.",
-        tone: "light",
+          "Un accompagnement permettant au lycéen de mieux comprendre son profil et de réfléchir à ses choix de spécialités en lien avec ses intérêts, ses compétences.",
+        stats: [
+          { label: "Séances", value: "4 × 1h" },
+          { label: "Durée totale", value: "4 heures" },
+        ],
+        detail: {
+          label: "Le détail des séances",
+          items: [
+            "Séance 1 : Mieux se connaître",
+            "Séance 2 : Explorer les spécialités",
+            "Séance 3 : Croiser profil et spécialités",
+            "Séance 4 : Choisir et se projeter",
+          ],
+        },
+        cta: "Demander cette formule",
+        recapDuration: "4 × 1h",
       },
       {
         slug: "cap-sur-l-avenir",
+        kind: "parcours",
+        badge: "Parcours 3",
+        audience: ["1", sup("re"), " et Terminale"],
         title: "Cap sur l’Avenir",
-        teaser:
-          "Passer de « je ne sais pas quoi faire » à des pistes concrètes et réfléchies, avec un projet d’études tenable et les démarches qui vont avec.",
+        tagline: "Construire son projet d’études",
         description:
-          "Passer de « je ne sais pas quoi faire » à des pistes concrètes et réfléchies. On explore les métiers et les formations, puis on construit un projet d’études tenable.",
-        tone: "slate",
-        highlight: "Le plus demandé",
+          "Un accompagnement approfondi pour aider le jeune à mieux se connaître, identifier ses ressources et construire un projet d’études cohérent avec son profil.",
+        stats: [
+          { label: "Séances", value: "5 × 1h" },
+          { label: "Durée totale", value: "5 h + bilan" },
+        ],
+        detail: {
+          label: "Le détail des séances",
+          items: [
+            "Séance 1 : Faire le point sur soi",
+            "Séance 2 : Bilan de compétences",
+            "Séance 3 : Explorer les métiers et les domaines",
+            "Séance 4 : Explorer les formations",
+            "Séance 5 : Construire son projet et son plan d’action",
+          ],
+        },
+        cta: "Demander cette formule",
+        recapDuration: "5 × 1h + bilan",
       },
     ],
   },
   {
     number: "02",
-    title: "Construire et sécuriser le projet",
-    formulas: [
+    title: "Les modules complémentaires",
+    note: "En présentiel ou en visioconférence",
+    intro:
+      "Des modules indépendants pour répondre à un besoin précis. Ils peuvent être réservés seuls ou ajoutés à l’un des parcours.",
+    offers: [
       {
-        slug: "bilan-d-orientation",
-        title: "Bilan d’orientation",
-        description:
-          "Le parcours de connaissance de soi au complet : tests d’intérêts et d’aptitudes, exploration des pistes, puis une synthèse écrite remise à la famille.",
-        tone: "light",
+        slug: "module-cv",
+        kind: "module",
+        badge: "Module",
+        audience: ["Tous niveaux"],
+        title: "CV",
+        fullName: "Module CV",
+        tagline: "Construire un CV qui valorise son parcours",
+        stats: [
+          { label: "Séances", value: "1 × 1h" },
+          { label: "Public", value: "Tous niveaux" },
+        ],
+        detail: {
+          label: "Le contenu du module",
+          items: [
+            "comprendre les objectifs d’un CV",
+            "identifier les expériences à valoriser",
+            "repérer ses compétences",
+            "structurer les différentes rubriques",
+            "améliorer la présentation",
+            "adapter son CV à une candidature",
+          ],
+        },
+        cta: "Demander ce module",
+        recapDuration: "1 × 1h",
       },
       {
-        slug: "parcoursup",
-        title: "Parcoursup",
-        description:
-          "Des vœux cohérents plutôt qu’une liste au hasard. Stratégie de candidature, rédaction des éléments du dossier et respect du calendrier, étape par étape.",
-        tone: "light",
-      },
-      {
-        slug: "parcours-complet",
-        title: "Parcours complet",
-        description:
-          "L’accompagnement de bout en bout, du bilan jusqu’aux dossiers envoyés. Un suivi continu sur toute l’année scolaire, pour le jeune comme pour ses parents.",
-        tone: "peach",
-      },
-    ],
-  },
-  {
-    number: "03",
-    title: "Candidatures et ateliers",
-    formulas: [
-      {
-        slug: "redaction-de-cv",
-        title: "Rédaction de CV",
-        description:
-          "Un CV clair et crédible, adapté aux codes du pays visé, qui met en valeur un parcours encore court sans le gonfler.",
-        tone: "light",
-      },
-      {
-        slug: "lettre-de-motivation",
+        slug: "module-lettre-de-motivation",
+        kind: "module",
+        badge: "Module",
+        audience: ["Tous niveaux"],
         title: "Lettre de motivation",
-        description:
-          "Une lettre qui ressemble vraiment au candidat et répond aux attentes de l’établissement, travaillée ensemble plutôt qu’écrite à sa place.",
-        tone: "light",
+        fullName: "Module Lettre de motivation",
+        tagline: "Apprendre à valoriser son profil",
+        stats: [
+          { label: "Séances", value: "1 × 1h" },
+          { label: "Public", value: "Tous niveaux" },
+        ],
+        detail: {
+          label: "Le contenu du module",
+          items: [
+            "comprendre les attentes d’une lettre",
+            "structurer son argumentation",
+            "valoriser son parcours",
+            "mettre en avant ses compétences",
+            "personnaliser son contenu",
+            "travailler sur une candidature concrète",
+          ],
+        },
+        cta: "Demander ce module",
+        recapDuration: "1 × 1h",
       },
       {
-        slug: "ateliers-collectifs",
-        title: "Ateliers collectifs",
-        description:
-          "En petit groupe, en classe ou en établissement : découverte des filières, méthodes de choix et préparation des démarches. Sur devis pour les institutions.",
-        tone: "light",
+        slug: "module-parcoursup",
+        kind: "module",
+        badge: "Module",
+        audience: ["Terminale"],
+        title: "Parcoursup",
+        fullName: "Module Parcoursup",
+        tagline: "Être accompagné à chaque étape",
+        stats: [
+          { label: "Séances", value: "3 × 1h" },
+          { label: "Public", value: "Terminale" },
+        ],
+        detail: {
+          label: "Le détail des séances",
+          items: [
+            "Séance 1 : Créer et comprendre",
+            "Séance 2 : Construire ses vœux",
+            "Séance 3 : Comprendre les résultats",
+          ],
+        },
+        cta: "Demander ce module",
+        recapDuration: "3 × 1h",
       },
     ],
   },
 ];
 
-export const formulas: Formula[] = formulaFamilies.flatMap((family) => family.formulas);
+export const offers: Offer[] = offerFamilies.flatMap((family) => family.offers);
 
-/** Les trois formules mises en avant sur l’accueil. */
-export const featuredFormulas: Formula[] = formulaFamilies[0].formulas;
+/** Les trois parcours, repris en cartes sur l’accueil. */
+export const parcours: Offer[] = offerFamilies[0].offers;
 
-/**
- * Options d’« accompagnement souhaité » du formulaire de contact.
- *
- * « Formation aux professionnels » ne correspond à aucune fiche de la page
- * Nos offres : c’est un service réel (confirmé par la FAQ) que la cliente a
- * choisi de garder côté formulaire sans lui créer de dixième carte.
- */
-export const contactFormulaOptions: { slug: string; label: string }[] = [
-  ...formulas.map((formula) => ({ slug: formula.slug, label: formula.title })),
-  { slug: "formation-aux-professionnels", label: "Formation aux professionnels" },
-];
+/** Les trois modules complémentaires. */
+export const modules: Offer[] = offerFamilies[1].offers;
+
+/** Nom de l’offre hors de son contexte : « Module CV » plutôt que « CV ». */
+export const offerName = (offer: Offer) => offer.fullName ?? offer.title;
+
+/** Tableau récapitulatif, section 03 de la page Nos offres. */
+export const recap = {
+  number: "03",
+  title: "La gamme en un coup d’œil",
+  columns: { offer: "Offre", audience: "Public", duration: "Durée" },
+  groups: [
+    { title: "Les parcours", offers: parcours },
+    { title: "Les modules", offers: modules },
+  ],
+  note: "Tous les accompagnements individuels sont proposés en présentiel ou en visioconférence.",
+};
+
+/** Les six offres, telles que proposées dans le formulaire de contact. */
+export const contactFormulaOptions: { slug: string; label: string }[] = offers.map((offer) => ({
+  slug: offer.slug,
+  label: offerName(offer),
+}));
 
 export const UNDECIDED_FORMULA = "je-ne-sais-pas-encore";
 export const UNDECIDED_FORMULA_LABEL = "Je ne sais pas encore, aidez-moi à choisir";
 
-export function findFormula(slug: string | undefined | null): Formula | undefined {
-  if (!slug) return undefined;
-  return formulas.find((formula) => formula.slug === slug);
-}
-
-/** Vrai pour toute valeur acceptée par le champ « accompagnement souhaité ». */
+/** Valeurs acceptées par le champ `formule` du formulaire de contact. */
 export function isValidFormulaChoice(slug: string): boolean {
   return (
-    slug === UNDECIDED_FORMULA ||
-    contactFormulaOptions.some((option) => option.slug === slug)
+    slug === UNDECIDED_FORMULA || contactFormulaOptions.some((option) => option.slug === slug)
   );
 }

@@ -1,3 +1,4 @@
+import { InitialCircle } from "@/components/ui/Bits";
 import type { AvatarTone, Testimonial } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
 
@@ -149,17 +150,14 @@ function SplitCard({ testimonial }: { testimonial: Testimonial }) {
 
 function Avatar({ testimonial, size }: { testimonial: Testimonial; size: "md" | "lg" }) {
   return (
-    <span
+    <InitialCircle
+      letter={testimonial.initial}
       className={cn(
-        "flex flex-none items-center justify-center rounded-full font-serif",
         avatarTone[testimonial.avatarTone],
         size === "lg"
           ? "size-[46px] text-[20px]/none nav:size-16 nav:text-[26px]"
           : "size-[46px] text-[20px]/none nav:size-[52px] nav:text-[22px]",
       )}
-      aria-hidden="true"
-    >
-      {testimonial.initial}
-    </span>
+    />
   );
 }

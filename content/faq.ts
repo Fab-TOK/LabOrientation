@@ -31,7 +31,7 @@ export const faqSections: FaqSection[] = [
         id: "a-qui-s-adresse",
         question: "À qui s’adresse Lab’Orientation ?",
         answer:
-          "Des collégiens aux adultes en reconversion : à partir de 14 ans et de la classe de 3ᵉ, sans limite d’âge. Également à leurs parents, ainsi qu’aux lycées et institutions qui souhaitent un accompagnement collectif. Les jeunes viennent aussi bien du système français que d’autres systèmes scolaires.",
+          "Des collégiens aux adultes en reconversion : dès la classe de 4ᵉ, sans limite d’âge. Également à leurs parents, ainsi qu’aux lycées et institutions qui souhaitent un accompagnement collectif. Les jeunes viennent aussi bien du système français que d’autres systèmes scolaires.",
       },
       {
         id: "idee-de-projet",

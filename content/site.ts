@@ -23,6 +23,12 @@ export const site = {
   responseDelay: "48 h ouvrées",
 } as const;
 
+/**
+ * Adresse publique du site, base de toutes les URL absolues : canoniques,
+ * image de partage, sitemap. Surchargeable pour une préproduction.
+ */
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://laborientation.com";
+
 export const routes = {
   home: "/",
   about: "/qui-suis-je",
@@ -35,3 +41,18 @@ export const routes = {
   bookingInfo: "/reserver/informations",
   bookingConfirmation: "/reserver/confirmation",
 } as const;
+
+/**
+ * Les sept pages publiques, celles qui entrent dans le sitemap.
+ * Le tunnel de réservation en est volontairement absent : il porte déjà
+ * `robots: { index: false }` et n'a aucun sens hors d'un parcours entamé.
+ */
+export const publicRoutes = [
+  routes.home,
+  routes.about,
+  routes.vision,
+  routes.offers,
+  routes.testimonials,
+  routes.faq,
+  routes.contact,
+] as const;

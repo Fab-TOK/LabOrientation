@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Témoignages",
   description:
     "Ce que disent les jeunes accompagnés par Lab’Orientation et leurs parents, dans leurs mots, repris intégralement.",
+  alternates: { canonical: routes.testimonials },
 };
 
 export default function TestimonialsPage() {
