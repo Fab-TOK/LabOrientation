@@ -14,8 +14,8 @@ export function CtaCard() {
         </p>
         <div className="mt-[18px] flex flex-col justify-center gap-[10px] nav:mt-[26px] nav:flex-row nav:gap-[14px]">
           <ButtonLink href={routes.booking} block className="nav:w-auto">
-            <span className="nav:hidden">Réserver 30 min offertes</span>
-            <span className="hidden nav:inline">Réserver ma séance gratuite de 30min</span>
+            <span className="nav:hidden">Réserver mes 20 min offertes</span>
+            <span className="hidden nav:inline">Réserver mon entretien gratuit de 20 minutes</span>
           </ButtonLink>
           <ButtonLink
             href={site.whatsapp}
@@ -24,7 +24,7 @@ export function CtaCard() {
             block
             className="bg-white nav:w-auto"
           >
-            WhatsApp, {site.phone}
+            Écrire sur WhatsApp
           </ButtonLink>
         </div>
       </div>

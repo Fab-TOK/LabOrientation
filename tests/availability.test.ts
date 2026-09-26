@@ -85,13 +85,13 @@ describe("toIsoDate", () => {
 });
 
 describe("slotEnd", () => {
-  it("ajoute trente minutes", () => {
-    expect(slotEnd("09:00")).toBe("09:30");
-    expect(slotEnd("10:30")).toBe("11:00");
-    expect(slotEnd("18:30")).toBe("19:00");
+  it("ajoute vingt minutes", () => {
+    expect(slotEnd("09:00")).toBe("09:20");
+    expect(slotEnd("10:30")).toBe("10:50");
+    expect(slotEnd("18:30")).toBe("18:50");
   });
 
   it("repasse à zéro après minuit", () => {
-    expect(slotEnd("23:45")).toBe("00:15");
+    expect(slotEnd("23:45")).toBe("00:05");
   });
 });

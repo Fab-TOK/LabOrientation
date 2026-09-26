@@ -1,5 +1,5 @@
 /**
- * Disponibilités de la séance de mise en contact.
+ * Disponibilités de l’entretien préalable gratuit.
  *
  * Les vraies disponibilités viendront de l’agenda Google de la conseillère.
  * En attendant, `MockAvailabilityProvider` produit un mois cohérent et
@@ -8,7 +8,10 @@
  * ni l’interface HTTP ni l’interface utilisateur ne changent.
  */
 
-export const SESSION_MINUTES = 30;
+import { site } from "@/content/site";
+
+/** Durée de la séance, lue dans `content/site.ts` : un seul chiffre à changer. */
+export const SESSION_MINUTES = site.freeSessionMinutes;
 export const TIMEZONE_LABEL = "GMT+1, Cotonou";
 
 /** Au-delà, l’agenda n’est pas encore ouvert : le mois revient vide. */
@@ -112,7 +115,7 @@ export function hasAnyAvailability(days: DayAvailability[]): boolean {
   return days.some((day) => day.state === "available");
 }
 
-/** Heure de fin du créneau, `HH:MM` + 30 minutes. */
+/** Heure de fin du créneau, `HH:MM` + la durée de la séance. */
 export function slotEnd(time: string): string {
   const [hours, minutes] = time.split(":").map(Number);
   const total = hours * 60 + minutes + SESSION_MINUTES;

@@ -52,7 +52,7 @@ export async function POST(request: Request) {
       `Bonjour ${data.name},`,
       "",
       `Merci pour votre message. ${site.name} vous recontactera sous ${site.responseDelay}`,
-      "pour convenir de la séance de mise en contact de 30 minutes, offerte et sans engagement.",
+      "pour convenir de l’entretien préalable gratuit de 20 minutes, sans engagement.",
       "",
       `Une question d’ici là ? Écrivez sur WhatsApp : ${site.whatsapp}`,
       "",

@@ -9,13 +9,13 @@ import { routes, site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Nos offres",
   description:
-    "Trois parcours d’accompagnement selon le niveau du jeune, de la 4ᵉ à la Terminale, et trois modules complémentaires : CV, lettre de motivation, Parcoursup. Tout commence par un échange gratuit de 30 minutes.",
+    "Trois parcours d’accompagnement selon le niveau du jeune, de la 4ᵉ à la Terminale, et trois modules complémentaires : CV, lettre de motivation, Parcoursup. Tout commence par un échange gratuit de 20 minutes.",
   alternates: { canonical: routes.offers },
 };
 
 const howItWorks = [
   "Vous remplissez le formulaire de contact et décrivez votre situation.",
-  "Nous fixons la séance de mise en contact de 30 minutes, offerte.",
+  "Nous fixons l’entretien préalable gratuit de 20 minutes.",
   "Nous identifions ensemble la formule adaptée, son tarif et le mode de paiement.",
 ];
 
@@ -31,7 +31,7 @@ export default function OffersPage() {
           <p className="mt-4 max-w-[56ch] text-[14.5px]/[1.7] text-slate/78 text-pretty nav:mt-5 nav:text-[17px]">
             Trois parcours selon le niveau du jeune, trois modules pour un besoin précis.
             Aucune formule ne se choisit à l’aveugle : tout commence par un échange gratuit
-            de 30 minutes.
+            de 20 minutes.
           </p>
         </div>
 
@@ -48,8 +48,8 @@ export default function OffersPage() {
                 <span className="text-[14.5px]/[1.55] text-slate/85">
                   {index === 1 ? (
                     <>
-                      Nous fixons la séance de mise en contact de 30 minutes,{" "}
-                      <strong className="font-bold">offerte</strong>.
+                      Nous fixons l’entretien préalable{" "}
+                      <strong className="font-bold">gratuit</strong> de 20 minutes.
                     </>
                   ) : (
                     step
@@ -73,7 +73,7 @@ export default function OffersPage() {
           </div>
           <p className="max-w-[46ch] text-[13.5px]/[1.6] text-cream/78 nav:text-[14px]">
             Les tarifs dépendent de la formule et du volume de séances. Ils sont précisés
-            lors de l’échange gratuit, jamais avant. {site.pricing.note}
+            lors de l’entretien préalable gratuit, jamais avant. {site.pricing.note}
           </p>
         </div>
       </section>
@@ -115,13 +115,13 @@ export default function OffersPage() {
               Vous hésitez entre plusieurs formules ?
             </h2>
             <p className="mt-3 max-w-[62ch] text-[14.5px]/[1.7] text-cream/82 text-pretty nav:text-[16px]">
-              C’est normal, et c’est exactement à cela que sert le premier échange. Décrivez
+              C’est normal, et c’est exactement à cela que sert l’entretien préalable gratuit. Décrivez
               simplement où vous en êtes, je vous aiderai à identifier la formule la plus
               adaptée.
             </p>
           </div>
           <ButtonLink href={routes.booking} block className="flex-none nav:w-auto">
-            Réserver mes 30 min offertes
+            Réserver mes 20 min offertes
           </ButtonLink>
         </div>
       </section>

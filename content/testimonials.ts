@@ -91,7 +91,7 @@ export const testimonials: Testimonial[] = [
     lead: "J’ai eu la chance d’être accompagnée par Madame Ghionda, et ce qui m’a particulièrement marquée chez elle, c’est son implication auprès de chacun de ses élèves. Elle était toujours là pour nous pousser à anticiper, à respecter les deadlines et à ne pas attendre le dernier moment pour faire nos démarches.",
     body: [
       "Aujourd’hui encore, à l’université, je me rends compte que j’ai gardé cette habitude de tout faire le plus tôt possible et c’est pour le mieux !",
-      "J’ai beaucoup apprécié sa disponibilité pour chacun de ses élèves même si nous étions parfois + de 150 elle faisait tout pour qu’on avance au même rythme. On sentait vraiment accompagnés !",
+      "J’ai beaucoup apprécié sa disponibilité pour chacun de ses élèves même si nous étions parfois + de 150 elle faisait tout pour qu’on avance au même rythme. On se sentait vraiment accompagnés !",
     ],
   },
   {
@@ -126,6 +126,18 @@ export const testimonials: Testimonial[] = [
       "En ce qui concerne mon fils Claude, votre Accompagnement specifique et l’appui que vous nous aviez apporté dans le cadre de la recherche supplementaire d’une Famille d’accueil lui a permis d’être Aujourd’hui en fin de Licence en Comptabilite après avoir validé son BAC PRO COMPTABILITE ET GESTION au Lycee Simone VEIL a CONFLANS SAINTE HONORINE et ensuite son BTS en COMPTABILITE a l’ECOLE NORMALE DE COMMERCE a Bessieres dans le 17 Arrondissement de Paris. En Octobre 2026, et si tout va bien, il debutera son cursus de Master en COMPTABILITE. Il vise l’Expertise comptable. Depuis Septembre 2025, il travaille chez AXA en alternance. Il est autonome financierement aussi.",
       "Merci infiniment pour votre Accompagnement dans le cadre de l’orientation de mes deux enfants à MONTAIGNE entre 2017 et 2020. Mes sinceres remerciements.",
     ],
+  },
+  {
+    id: "sara-capo",
+    name: "Sara Capo",
+    initial: "S",
+    avatarTone: "turquoise",
+    context:
+      "Accompagnée en 3ᵉ au lycée français Montaigne, Cotonou. Aujourd’hui pâtissière et boulangère.",
+    badge: "Ancienne élève",
+    variant: "wide-slate",
+    lead: "J’aimerais remercier Mme Ghionda, qui m’a suivie et orientée dans mon cursus professionnel, lorsque j’étais en 3ᵉ à Cotonou, à Montaigne. Et cette orientation a été un succès : j’ai obtenu mon diplôme et je vis aujourd’hui de ce métier, qui est la pâtisserie ainsi que la boulangerie. Je me lance même en autodidacte. Si c’était à refaire, je me réfèrerais encore à elle.",
+    body: [],
   },
   {
     id: "zahra-wazni",

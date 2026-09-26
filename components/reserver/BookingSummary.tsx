@@ -31,7 +31,7 @@ export function BookingSummary({
     <aside className="rounded-[14px] bg-slate p-5 text-cream nav:sticky nav:top-5 nav:rounded-[16px] nav:p-7">
       <div className="t-label text-cream/55">Récapitulatif</div>
       <p className="mt-3 font-serif text-[21px]/[1.25] text-peach nav:text-[24px]">
-        Séance de mise en contact
+        Entretien préalable gratuit
       </p>
 
       <dl className="mt-5 flex flex-col gap-3 border-t border-cream/20 pt-4">

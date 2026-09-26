@@ -102,13 +102,13 @@ export function MobileMenu({
         <div className="mt-[26px] rounded-[16px] border border-cream/18 bg-cream/8 p-[22px]">
           <span className="badge-peach text-[10.5px]">Gratuit</span>
           <div className="mt-3 font-serif text-[22px]/[1.2] text-peach">
-            30 minutes pour faire le point
+            20 minutes pour faire le point
           </div>
           <p className="mt-2 t-body-sm text-cream/82">
             Sans engagement, en présentiel au Bénin ou en visioconférence.
           </p>
           <ButtonLink href={routes.booking} block className="mt-4" onClick={onClose}>
-            Réserver 30 min offertes
+            Réserver mes 20 min offertes
           </ButtonLink>
         </div>
       </div>

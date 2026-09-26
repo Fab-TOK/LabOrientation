@@ -29,7 +29,7 @@ const optionalPhone = z
   .trim()
   .max(24, "Ce numéro est trop long.")
   .refine((value) => value === "" || PHONE.test(value), {
-    message: "Indiquez un numéro au format international, par exemple +229 97 27 57 97.",
+    message: "Indiquez un numéro au format international, par exemple +229 01xxxxxxxx.",
   })
   .optional()
   .or(z.literal(""));
@@ -72,7 +72,7 @@ export const bookingSchema = z.object({
   /** Créneau retenu, au format `HH:MM`. */
   slot: z.string().regex(/^\d{2}:\d{2}$/, "Choisissez un créneau horaire."),
   participant: z.enum(["eleve", "parent", "institution"], {
-    message: "Dites-nous qui participera à l’échange.",
+    message: "Dites-nous qui participera à l’entretien.",
   }),
   name: requiredName,
   youngName: z.string().trim().max(120).optional().or(z.literal("")),

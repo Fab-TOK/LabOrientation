@@ -40,7 +40,7 @@ Tout le texte vit dans `content/`, jamais dans les composants :
 |---|---|
 | `formulas.ts` | Les six offres : trois parcours, trois modules |
 | `testimonials.ts` | Les six témoignages |
-| `faq.ts` | Les treize questions |
+| `faq.ts` | Les douze questions et leurs réponses |
 | `johana.ts` | La présentation de Johana |
 | `vision.ts` | La page Ma vision |
 | `site.ts` | Coordonnées, tarifs planchers, signature, adresse publique |
@@ -89,6 +89,15 @@ par les `max-width` en `ch` posées paragraphe par paragraphe.
 
 **Aucune ombre nulle part** : la profondeur vient des aplats et des bordures fines.
 
+**Animations discrètes** (section « Animations » de `globals.css`) : arrivée en cascade du
+haut de l’accueil, chiffres qui comptent (`components/ui/CountUp.tsx`), cartes de parcours qui
+se soulèvent au survol, globe qui tourne, halo du point de l’étiquette. Aucune bibliothèque.
+Pour les visiteurs qui demandent moins de mouvement, tout arrive directement à l’état final et
+les boucles s’arrêtent, **sauf le globe, qui tourne pour tout le monde** à la demande de la
+cliente : ses méridiens sont animés dans le SVG même (`GlobeIcon`, `<animate>`), hors de portée
+des règles CSS. Pour rejouer une animation, préférer des `@keyframes` aux transitions : retirer
+puis remettre une classe ne relance pas une transition.
+
 ## Ce qui est simulé
 
 Le parcours est complet et l’état persiste d’une étape à l’autre, mais deux intégrations
@@ -120,9 +129,9 @@ de production dans ses canoniques et son sitemap.
 Chaque page publique porte sa propre URL canonique, pour qu’un paramètre de campagne
 (`?utm_source=…`) ou de préremplissage (`?formule=…`) ne soit pas indexé comme une page à part.
 
-⚠️ **Le balisage de FAQ ne déclare que les questions réellement répondues.** Onze des treize
-portent encore « Réponse à venir » ; les annoncer à un moteur serait faux. Le filtre porte sur
-la présence de `answer`, il n’y aura donc rien à faire quand les réponses arriveront.
+⚠️ **Le balisage de FAQ ne déclare que les questions réellement répondues.** Les douze le sont
+aujourd’hui. Une question ajoutée sans `answer` s’afficherait avec « Réponse à venir » et
+resterait hors du balisage : annoncer une réponse absente à un moteur serait faux.
 
 ## Reste à obtenir de la cliente
 
@@ -131,9 +140,7 @@ la présence de `answer`, il n’y aura donc rien à faire quand les réponses a
    (`components/ui/PhotoPlaceholder.tsx`) ; il suffira de remplacer le composant par un
    `next/image`. Les témoignages, eux, n’attendent plus d’image : ils portent l’initiale de
    leur auteur sur les deux pages.
-2. **Onze réponses de FAQ** — les questions s’affichent avec la mention « Réponse à venir ».
-   Renseigner `answer` dans `content/faq.ts` suffit à publier la réponse.
-3. **Identifiants Google Cloud et clé d’envoi d’e-mails**, pour les deux intégrations
+2. **Identifiants Google Cloud et clé d’envoi d’e-mails**, pour les deux intégrations
    ci-dessus.
 
 ## Décisions d’arbitrage
@@ -159,7 +166,8 @@ Sur les points laissés ouverts par le handoff :
   grille est en `items-start` : une carte dépliée s’allonge seule, sans entraîner ses voisines.
 - **« Ateliers collectifs » et « Formation aux professionnels » ont disparu** avec la nouvelle
   gamme. La FAQ continue de mentionner les lycées et institutions, à la demande du client :
-  la question `etablissements-et-professionnels` reste sans réponse rédigée.
+  la réponse à `etablissements-et-professionnels` explique ce travail (ateliers de groupe,
+  formation de conseillers Campus France) hors de la gamme des six offres.
 - **Les trois catégories de la FAQ sont des repères de navigation**, pas un filtre : la
   maquette montre les trois sections affichées en même temps avec une seule en surbrillance.
   La catégorie active suit le défilement.

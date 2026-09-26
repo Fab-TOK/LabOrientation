@@ -11,10 +11,10 @@ export function ContactSidebar() {
     <aside className="flex flex-col gap-4 nav:sticky nav:top-5">
       <div className="rounded-[14px] bg-slate p-5 text-cream nav:rounded-[16px] nav:p-[26px]">
         <h2 className="font-serif text-[22px]/[1.2] text-peach nav:text-[24px]">
-          30 minutes offertes
+          20 minutes offertes
         </h2>
         <p className="mt-3 text-[13.5px]/[1.65] text-cream/85">
-          La séance de mise en contact est gratuite et sans engagement. Elle sert à
+          L’entretien préalable est gratuit et sans engagement. Il sert à
           comprendre votre besoin et à vous orienter vers la formule adaptée. Le tarif et
           les modalités de paiement sont discutés à ce moment-là.
         </p>
@@ -49,7 +49,7 @@ export function ContactSidebar() {
           rel="noreferrer noopener"
           className="mt-3 block font-serif text-[20px]/[1.2] hover:underline"
         >
-          {site.phone}
+          Écrire sur WhatsApp <span aria-hidden="true">→</span>
         </a>
         <a
           href={site.emailHref}

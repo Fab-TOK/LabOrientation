@@ -5,10 +5,10 @@ const proofs = [
   },
   { label: "Volume", text: "Plus de 1 000 jeunes accompagnés, du collège au post-bac." },
   {
-    label: "Double système",
-    text: "Une expertise des parcours français et internationaux, réseau AEFE compris.",
+    label: "Systèmes scolaires",
+    text: "Un accompagnement sur les parcours internationaux. Une expertise des parcours français, réseau AEFE compris.",
   },
-  { label: "Méthode", text: "Une démarche certifiée et reconnue, structurée en étapes claires." },
+  { label: "Méthode", text: "Une démarche affinée et qui a fait ses preuves." },
   {
     label: "Sur mesure",
     text: "Un accompagnement individualisé, humain, bienveillant et exigeant.",
@@ -23,10 +23,10 @@ export function TrustSection() {
         <div>
           <div className="t-eyebrow text-peach">Pourquoi me faire confiance</div>
           <h2 className="t-h2 mt-3 max-w-[17ch] nav:mt-[14px]">
-            Une méthode, pas une solution toute faite
+            Une expertise et un accompagnement humain
           </h2>
           <p className="t-quote mt-4 max-w-[40ch] text-peach nav:mt-[22px]">
-            Mon rôle n’est pas de décider à sa place, mais de lui donner les outils, la
+            Mon rôle n’est pas de décider à la place de l’élève, mais de lui donner les outils, la
             confiance et la méthode.
           </p>
           <p className="t-body mt-[14px] max-w-[44ch] text-cream/80 nav:mt-[18px] nav:text-[15.5px]/[1.75]">

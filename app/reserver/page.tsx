@@ -17,12 +17,12 @@ export default function BookingDatePage() {
   return (
     <>
       <section className="gutter pt-6 pb-6 nav:pt-10 nav:pb-8">
-        <Eyebrow>Séance de mise en contact</Eyebrow>
+        <Eyebrow>Entretien préalable gratuit</Eyebrow>
         <h1 className="t-h1-page mt-3 nav:mt-4 nav:text-[48px]/[1.05]">
-          Réserver mes 30 minutes offertes
+          Réserver mon entretien gratuit de 20 minutes
         </h1>
         <p className="mt-3 max-w-[74ch] text-[14.5px]/[1.7] text-slate/78 text-pretty nav:mt-[14px] nav:text-[16.5px]">
-          Cet échange est gratuit et sans engagement. Il sert à comprendre votre situation et
+          Cet entretien est gratuit et sans engagement. Il sert à comprendre votre situation et
           à identifier ensemble la formule adaptée. Le tarif et les modalités de paiement
           sont abordés pendant l’entretien.
         </p>
@@ -39,7 +39,7 @@ export default function BookingDatePage() {
 
         <BookingSummary
           booking={booking}
-          note="Aucun paiement sur le site. Le tarif de l’accompagnement est discuté pendant cet échange, une fois la formule identifiée."
+          note="Aucun paiement sur le site. Le tarif de l’accompagnement est discuté pendant cet entretien, une fois la formule identifiée."
         >
           <Button
             block

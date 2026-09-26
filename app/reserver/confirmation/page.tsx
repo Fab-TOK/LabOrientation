@@ -12,11 +12,11 @@ import { buildIcs, googleCalendarUrl, type CalendarEvent } from "@/lib/ics";
 
 const nextSteps = [
   {
-    title: "Avant l’échange",
+    title: "Avant l’entretien",
     text: "Rien à préparer. Si le jeune peut être présent, c’est mieux, mais ce n’est pas obligatoire.",
   },
   {
-    title: "Pendant les 30 minutes",
+    title: "Pendant les 20 minutes",
     text: "Nous faisons le point sur la situation et j’identifie avec vous la formule adaptée, son tarif et les modalités de paiement.",
   },
   {
@@ -38,8 +38,8 @@ export default function BookingConfirmationPage() {
   const event: CalendarEvent = {
     date: booking.date,
     slot: booking.slot,
-    title: `Séance de mise en contact · ${site.name}`,
-    description: `Échange de ${SESSION_MINUTES} minutes avec ${site.founder}. Le lien de visioconférence vous est envoyé par e-mail. Une question : ${site.phone}.`,
+    title: `Entretien préalable gratuit · ${site.name}`,
+    description: `Entretien de ${SESSION_MINUTES} minutes avec ${site.founder}. Le lien de visioconférence vous est envoyé par e-mail. Une question : ${site.phone}.`,
     location:
       booking.format === "presentiel" ? "Cotonou, Bénin" : "Visioconférence, lien par e-mail",
   };
@@ -80,7 +80,7 @@ export default function BookingConfirmationPage() {
           </p>
 
           <dl className="mt-5 flex flex-col gap-[10px] border-t border-slate/12 pt-4">
-            <Row label="Séance" value={`Mise en contact, ${SESSION_MINUTES} min`} />
+            <Row label="Rendez-vous" value={`Entretien préalable, ${SESSION_MINUTES} min`} />
             <Row
               label="Format"
               value={booking.format ? formatLabels[booking.format] : "À préciser ensemble"}
@@ -138,7 +138,7 @@ export default function BookingConfirmationPage() {
             rel="noreferrer noopener"
             className="btn btn-on-slate flex-none"
           >
-            {site.phone}
+            Écrire sur WhatsApp
           </a>
         </div>
       </section>

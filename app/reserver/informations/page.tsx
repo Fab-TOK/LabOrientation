@@ -80,10 +80,10 @@ export default function BookingInfoPage() {
   return (
     <>
       <section className="gutter pt-6 pb-6 nav:pt-10 nav:pb-8">
-        <Eyebrow>Séance de mise en contact</Eyebrow>
+        <Eyebrow>Entretien préalable gratuit</Eyebrow>
         <h1 className="t-h1-page mt-3 nav:mt-4 nav:text-[48px]/[1.05]">Vos informations</h1>
         <p className="mt-3 max-w-[74ch] text-[14.5px]/[1.7] text-slate/78 nav:mt-[14px] nav:text-[16.5px]">
-          Ces quelques éléments me permettent de préparer l’échange et de vous envoyer la
+          Ces quelques éléments me permettent de préparer l’entretien et de vous envoyer la
           confirmation.
         </p>
         <ProgressSteps current={2} />
@@ -107,7 +107,7 @@ export default function BookingInfoPage() {
           noValidate
           className="card rounded-[18px] bg-offwhite p-5 nav:rounded-[20px] nav:px-10 nav:py-9"
         >
-          <FormStep number="01" title="Qui participe à l’échange ?">
+          <FormStep number="01" title="Qui participe à l’entretien ?">
             <div className="mt-5 grid gap-3 nav:grid-cols-3">
               {participantTypes.map((type) => (
                 <RadioCard
@@ -225,7 +225,7 @@ export default function BookingInfoPage() {
               error={errors.consent}
             >
               J’accepte que ces informations soient utilisées uniquement pour préparer notre
-              échange et me recontacter.
+              entretien et me recontacter.
             </Checkbox>
           </div>
 

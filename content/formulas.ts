@@ -39,8 +39,6 @@ export type Offer = {
   /** Dépliant, replié par défaut. */
   detail: { label: string; items: string[] };
   cta: string;
-  /** Une seule carte porte la bordure ardoise épaisse. */
-  featured?: true;
   /** Colonne « Durée » du tableau récapitulatif. */
   recapDuration: string;
   /** Nom complet, hors de sa famille : formulaire de contact et tableau. */
@@ -86,7 +84,6 @@ export const offerFamilies: OfferFamily[] = [
           ],
         },
         cta: "Demander cette formule",
-        featured: true,
         recapDuration: "3 × 1h",
       },
       {

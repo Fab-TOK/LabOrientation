@@ -3,9 +3,9 @@ import { BookingHeader } from "@/components/reserver/BookingHeader";
 import { BookingProvider } from "@/lib/booking-context";
 
 export const metadata: Metadata = {
-  title: "Réserver 30 minutes offertes",
+  title: "Réserver mon entretien gratuit de 20 minutes",
   description:
-    "Choisissez une date et un créneau pour la séance de mise en contact de 30 minutes, gratuite et sans engagement.",
+    "Choisissez une date et un créneau pour l’entretien préalable gratuit de 20 minutes, sans engagement.",
   robots: { index: false },
 };
 

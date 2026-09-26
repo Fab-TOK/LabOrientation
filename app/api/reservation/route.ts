@@ -46,8 +46,8 @@ export async function POST(request: Request) {
   const event: CalendarEvent = {
     date: data.date,
     slot: data.slot,
-    title: `Séance de mise en contact · ${site.name}`,
-    description: `Échange de ${SESSION_MINUTES} minutes avec ${site.founder}. Le lien de visioconférence est envoyé par e-mail. Une question : ${site.phone}.`,
+    title: `Entretien préalable gratuit · ${site.name}`,
+    description: `Entretien de ${SESSION_MINUTES} minutes avec ${site.founder}. Le lien de visioconférence est envoyé par e-mail. Une question : ${site.phone}.`,
     location:
       data.format === "presentiel" ? "Cotonou, Bénin" : "Visioconférence, lien par e-mail",
   };
@@ -82,10 +82,10 @@ export async function POST(request: Request) {
     text: [
       `Bonjour ${data.name},`,
       "",
-      "Votre séance de mise en contact est confirmée :",
+      "Votre entretien préalable gratuit est confirmé :",
       when,
       "",
-      "L’invitation est jointe à ce message. Le lien de visioconférence vous parviendra avant l’échange.",
+      "L’invitation est jointe à ce message. Le lien de visioconférence vous parviendra avant l’entretien.",
       `Un empêchement ? Écrivez sur WhatsApp : ${site.whatsapp}`,
       "",
       site.signature,

@@ -7,7 +7,7 @@ import { routes } from "@/content/site";
 export const metadata: Metadata = {
   title: "Prenons contact",
   description:
-    "Élève, parent ou institution : décrivez votre situation et convenons d’une séance de mise en contact de 30 minutes, offerte et sans engagement.",
+    "Élève, parent ou institution : décrivez votre situation et convenons d’un entretien préalable gratuit de 20 minutes, sans engagement.",
   alternates: { canonical: routes.contact },
 };
 

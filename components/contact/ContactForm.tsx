@@ -118,8 +118,8 @@ export function ContactForm() {
           Merci, votre message est parti.
         </h2>
         <p className="mt-3 max-w-[60ch] text-[15px]/[1.7] text-slate/80">
-          Lab’Orientation vous recontactera sous {site.responseDelay} pour convenir de la
-          séance de mise en contact de 30 minutes, offerte et sans engagement.
+          Lab’Orientation vous recontactera sous {site.responseDelay} pour convenir de
+          l’entretien préalable gratuit de 20 minutes, sans engagement.
         </p>
       </div>
     );
@@ -300,7 +300,7 @@ export function ContactForm() {
         </Button>
 
         <p className="mt-3 text-[13px]/[1.6] text-slate/70">
-          Vos informations ne servent qu’à préparer notre échange. Réponse sous{" "}
+          Vos informations ne servent qu’à préparer notre entretien. Réponse sous{" "}
           {site.responseDelay}.
         </p>
 

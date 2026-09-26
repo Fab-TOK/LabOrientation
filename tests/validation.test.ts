@@ -58,7 +58,7 @@ describe("contactSchema", () => {
   });
 
   it("accepte un téléphone international, avec ou sans séparateurs", () => {
-    for (const phone of ["+229 97 27 57 97", "+33612345678", "0033-6-12-34-56-78", ""]) {
+    for (const phone of ["+229 01 97 27 57 97", "+229 97 27 57 97", "06 12 34 56 78", "+33612345678", "0033-6-12-34-56-78", ""]) {
       const result = contactSchema.safeParse({ ...validContact, phone });
       expect(result.success, `« ${phone} » devrait être acceptée`).toBe(true);
     }

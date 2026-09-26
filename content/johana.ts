@@ -31,11 +31,11 @@ export const johanaIntro: Paragraph[] = [
     strong(
       "compréhension fine des différences culturelles et des codes qui influencent les parcours scolaires et professionnels",
     ),
-    ". Il me permet aujourd’hui de porter un regard particulièrement adapté aux jeunes qui évoluent entre plusieurs cultures, pays ou systèmes scolaires.",
+    ". Il me permet aujourd’hui de porter un regard particulièrement adapté sur les jeunes qui évoluent entre plusieurs cultures, pays ou systèmes scolaires.",
   ],
   [
     strong(
-      "Juriste de formation, j’ai ensuite évolué dans la gestion des ressources humaines, puis dirigé une entreprise de services.",
+      "Après des études de droit, j’ai eu plusieurs vies professionnelles, notamment dans le management et la gestion des ressources humaines.",
     ),
     " Ces expériences m’ont permis de développer des compétences en ",
     strong("management, recrutement et gestion des talents"),
@@ -96,7 +96,8 @@ export const troisRegards = [
 ];
 
 export const parcours = [
-  "Juriste de formation",
+  "Masters en droit et négociation",
+  "Management commercial",
   "Gestion des ressources humaines",
   "Direction d’une entreprise de services",
   "Conseil en orientation, réseau AEFE",
@@ -108,11 +109,11 @@ export const johanaChips = [
   "Réseau AEFE",
   "Formatrice Campus France",
   "Systèmes français et internationaux",
-  "Méthode certifiée",
+  "Méthode affinée",
 ];
 
 /** Deux paragraphes de présentation, version courte, pour l’accueil. */
 export const johanaTeaser = [
-  "Conseillère d’orientation et fondatrice de Lab’Orientation. Un parcours entre le Moyen-Orient, la France, l’Amérique du Nord, l’Espagne et l’Afrique de l’Ouest, une formation de juriste, puis la gestion des ressources humaines et la direction d’une entreprise de services. Depuis onze ans, l’orientation scolaire et universitaire, en lycées français à l’étranger comme auprès de jeunes venus d’autres systèmes.",
+  "Conseillère d’orientation et fondatrice de Lab’Orientation. Un parcours entre le Moyen-Orient, la France, l’Amérique du Nord, l’Espagne et l’Afrique de l’Ouest, des études de droit, puis du management commercial et la gestion des ressources humaines. Depuis onze ans, l’orientation scolaire et universitaire, en lycées français à l’étranger comme auprès de jeunes venus d’autres systèmes.",
   "Une expérience internationale, une expertise de l’orientation et une connaissance du monde professionnel : trois regards complémentaires au service de chaque projet.",
 ];

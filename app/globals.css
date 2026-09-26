@@ -37,6 +37,11 @@
  * Base
  * ------------------------------------------------------------------ */
 @layer base {
+  :root {
+    /* Courbe de toutes les animations : départ franc, arrivée très douce. */
+    --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
@@ -65,11 +70,18 @@
     html {
       scroll-behavior: auto;
     }
+    /* Tout arrive immédiatement à son état final. Sans le nombre d’itérations,
+       une animation en boucle rejouerait sans fin en 0,01 ms, soit un
+       clignotement ; sans les délais, une cascade laisserait des éléments
+       invisibles un instant. */
     *,
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      animation-delay: 0s !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
     }
   }
 }
@@ -547,8 +559,36 @@
     }
   }
 
-  .card-link:hover {
-    border-color: --alpha(var(--color-slate) / 28%);
+  /* Carte entièrement cliquable : le lien qu’elle contient s’étend sur toute
+     sa surface (voir `FormulasTeaser`). Elle se soulève au survol, sans ombre :
+     la profondeur vient du déplacement et de la bordure. */
+  .card-link {
+    position: relative;
+    transition:
+      transform 260ms var(--ease-soft),
+      border-color 260ms ease;
+  }
+
+  .card-link-arrow {
+    display: inline-block;
+    transition: transform 220ms var(--ease-soft);
+  }
+
+  /* Seulement avec une souris : sur écran tactile, `:hover` resterait collé
+     après le toucher. */
+  @media (hover: hover) {
+    .card-link:hover {
+      transform: translateY(-3px);
+      border-color: --alpha(var(--color-slate) / 40%);
+    }
+
+    .card-link:hover .card-link-arrow {
+      transform: translateX(5px);
+    }
+  }
+
+  .card-link:focus-within {
+    border-color: --alpha(var(--color-slate) / 40%);
   }
 
   /* Emplacement réservé pour une photo non encore fournie. */
@@ -598,5 +638,131 @@
 
   .accordion-panel > div {
     overflow: hidden;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Animations — registre discret : 700 ms, 14 px, 90 ms d’écart.
+ *
+ * Pour les visiteurs qui demandent moins de mouvement, la règle de
+ * `@layer base` ramène tout à l’état final ; les boucles sont en plus
+ * coupées en bas de cette section, pour retrouver le dessin d’origine.
+ * Seul le globe tourne pour tout le monde, à la demande de la cliente :
+ * il est animé dans son propre SVG (`GlobeIcon`), hors de ces règles.
+ * ------------------------------------------------------------------ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Le cadre turquoise part caché derrière la photo, puis glisse à sa place. */
+@keyframes frame-in {
+  from {
+    transform: translate(-16px, -18px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes halo {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  80%,
+  100% {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  to {
+    visibility: visible;
+  }
+}
+
+@layer components {
+  /* Arrivée en cascade : `--i` donne le rang de l’élément. `both` le garde
+     invisible pendant son délai. Aucun script : l’animation part au premier
+     affichage, sans clignotement. */
+  .anim-rise {
+    animation: rise 700ms var(--ease-soft) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .anim-settle {
+    animation: settle 1050ms var(--ease-soft) 180ms both;
+  }
+
+  .anim-frame {
+    animation: frame-in 910ms var(--ease-soft) 360ms both;
+  }
+
+  /* Point de l’étiquette du hero : un halo s’en échappe toutes les 2 s. */
+  .dot-halo {
+    position: relative;
+  }
+
+  .dot-halo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: halo 2s var(--ease-soft) infinite;
+  }
+
+  /* Compteur : caché tant que le script n’a pas pris la main, pour ne jamais
+     montrer le chiffre final puis 0. Sans JavaScript (`scripting: none`), il
+     s’affiche directement ; si le script ne vient jamais, il réapparaît au
+     bout de 3 s. */
+  .count-up {
+    display: inline-grid;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* La valeur finale, invisible, occupe la même case que le chiffre qui
+     compte : la largeur est celle du nombre final dès le départ. */
+  .count-up::before {
+    content: attr(data-final);
+    visibility: hidden;
+    grid-area: 1 / 1;
+  }
+
+  .count-up > [data-count] {
+    grid-area: 1 / 1;
+    text-align: right;
+  }
+
+  @media (scripting: enabled) {
+    .count-up:not([data-ready]) {
+      visibility: hidden;
+      animation: appear 0s 3s forwards;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dot-halo::after {
+      animation: none;
+    }
   }
 }

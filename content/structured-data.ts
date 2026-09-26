@@ -34,7 +34,7 @@ export const professionalService = {
   priceRange: site.pricing.benin.from,
   potentialAction: {
     "@type": "ReserveAction",
-    name: `Séance de mise en contact de ${site.freeSessionMinutes} minutes, offerte`,
+    name: `Entretien préalable gratuit de ${site.freeSessionMinutes} minutes`,
     target: absolute(routes.booking),
   },
 };
@@ -42,8 +42,9 @@ export const professionalService = {
 /**
  * Page de FAQ, **restreinte aux questions réellement répondues**.
  *
- * Déclarer « Réponse à venir » à un moteur serait faux. Les onze autres
- * rejoindront le balisage d’elles-mêmes le jour où `answer` sera renseigné.
+ * Déclarer « Réponse à venir » à un moteur serait faux. Toutes les questions
+ * ont aujourd’hui une réponse ; le filtre écarte d’office celle qu’on
+ * ajouterait sans `answer`.
  */
 export function faqPage() {
   const answered = faqSections

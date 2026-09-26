@@ -1,13 +1,17 @@
 import { GlobeIcon } from "@/components/ui/Bits";
+import { CountUp } from "@/components/ui/CountUp";
 
+/** Le nombre compte de 0 à `count` à son arrivée à l’écran (voir `CountUp`). */
 const stats = [
   {
-    value: "11 ans",
+    count: 11,
+    suffix: " ans",
     label:
       "d’expérience en orientation scolaire et universitaire, notamment en lycées français à l’étranger du réseau AEFE",
   },
   {
-    value: "+ de 1 000",
+    prefix: "+ de ",
+    count: 1000,
     label:
       "jeunes guidés dans les moments clés de leur parcours, du choix de spécialités à Parcoursup",
   },
@@ -19,14 +23,18 @@ export function StatsBanner() {
       <div className="grid gap-[18px] rounded-[16px] bg-slate px-[22px] py-6 nav:grid-cols-[1fr_1fr_1.15fr] nav:gap-[34px] nav:px-10 nav:py-[34px]">
         {stats.map((stat, index) => (
           <div
-            key={stat.value}
+            key={stat.count}
             className={
               index === 0
                 ? ""
                 : "border-t border-cream/18 pt-[18px] nav:border-t-0 nav:border-l nav:pt-0 nav:pl-[34px]"
             }
           >
-            <div className="t-stat font-serif text-peach">{stat.value}</div>
+            <div className="t-stat font-serif text-peach">
+              {stat.prefix}
+              <CountUp value={stat.count} />
+              {stat.suffix}
+            </div>
             <p className="mt-1 text-[13.5px]/[1.5] text-cream/82 nav:mt-2 nav:text-[14px] nav:text-cream/80">
               {stat.label}
             </p>

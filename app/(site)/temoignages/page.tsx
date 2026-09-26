@@ -4,6 +4,7 @@ import { Eyebrow } from "@/components/ui/Bits";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 import { routes } from "@/content/site";
 import { testimonialCount, testimonials } from "@/content/testimonials";
+import { CountUp } from "@/components/ui/CountUp";
 
 export const metadata: Metadata = {
   title: "Témoignages",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default function TestimonialsPage() {
-  const [laura, malika, shirley, lucie, cosme, zahra] = testimonials;
+  const [laura, malika, shirley, lucie, cosme, sara, zahra] = testimonials;
 
   return (
     <>
@@ -32,7 +33,7 @@ export default function TestimonialsPage() {
         <div className="flex gap-3 nav:gap-[14px]">
           <div className="flex-1 rounded-[14px] bg-slate px-5 py-5 text-cream nav:px-6 nav:py-[22px]">
             <div className="font-serif text-[26px]/none text-peach nav:text-[34px]">
-              + de 1 000
+              + de <CountUp value={1000} />
             </div>
             <p className="mt-[7px] text-[13px]/[1.5] text-cream/80 nav:text-[13.5px]">
               jeunes accompagnés en 11 ans
@@ -40,7 +41,7 @@ export default function TestimonialsPage() {
           </div>
           <div className="flex-1 rounded-[14px] bg-peach px-5 py-5 nav:px-6 nav:py-[22px]">
             <div className="font-serif text-[26px]/none text-terracotta nav:text-[34px]">
-              {testimonialCount}
+              <CountUp value={testimonialCount} />
             </div>
             <p className="mt-[7px] text-[13px]/[1.5] text-slate/80 nav:text-[13.5px]">
               témoignages publiés, élèves et parents
@@ -59,6 +60,7 @@ export default function TestimonialsPage() {
         </div>
 
         <TestimonialCard testimonial={cosme} />
+        <TestimonialCard testimonial={sara} />
         <TestimonialCard testimonial={zahra} />
       </div>
 
@@ -68,7 +70,7 @@ export default function TestimonialsPage() {
             Le prochain parcours pourrait être le vôtre
           </h2>
           <p className="mx-auto mt-3 max-w-[58ch] text-[14.5px]/[1.7] text-slate/75 nav:mt-[14px] nav:text-[16.5px]">
-            Trente minutes offertes pour faire le point sur votre situation, sans engagement.
+            Vingt minutes offertes pour faire le point sur votre situation, sans engagement.
           </p>
           <ButtonLink href={routes.contact} className="mt-5 nav:mt-6">
             Prenons contact

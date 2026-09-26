@@ -35,11 +35,18 @@ export function FormulasTeaser() {
               {offer.title}
             </h3>
             <p className="t-body mt-[10px] flex-1 text-slate/75 nav:mt-3">{offer.description}</p>
+            {/* Le lien s’étend sur toute la carte (`after:inset-0`, la carte est
+                en `position: relative`) : un clic n’importe où y mène, comme le
+                laisse attendre la carte qui se soulève au survol. */}
             <Link
               href={`${routes.offers}#${offer.slug}`}
-              className="mt-[14px] text-[14px]/none font-semibold text-slate nav:mt-[22px] nav:border-t nav:border-slate/12 nav:pt-[18px]"
+              aria-label={`En savoir plus sur ${offer.title}`}
+              className="mt-[14px] text-[14px]/none font-semibold text-slate after:absolute after:inset-0 nav:mt-[22px] nav:border-t nav:border-slate/12 nav:pt-[18px]"
             >
-              En savoir plus <span aria-hidden="true">→</span>
+              En savoir plus{" "}
+              <span aria-hidden="true" className="card-link-arrow">
+                →
+              </span>
             </Link>
           </li>
         ))}
@@ -54,23 +61,25 @@ export function FormulasTeaser() {
   );
 }
 
-/** Bandeau ardoise : la séance offerte à gauche, les tarifs planchers à droite. */
+/** Bandeau ardoise : l’entretien préalable gratuit à gauche, les tarifs planchers à droite. */
 function FreeSessionBanner() {
   return (
     <div className="mt-[22px] rounded-[14px] bg-slate px-[22px] py-6 text-cream nav:mt-[34px] nav:grid nav:grid-cols-[1.3fr_1px_1fr] nav:items-center nav:gap-10 nav:rounded-[16px] nav:px-10 nav:py-[38px]">
       <div>
         <span className="badge-peach text-[10.5px] nav:text-[11.5px]">Gratuit</span>
         <p className="mt-[14px] font-serif text-[25px]/[1.2] text-peach nav:mt-4 nav:text-[34px]/[1.15]">
-          Tout commence par un échange de 30 minutes
+          Tout commence par un échange de 20 minutes
         </p>
         <p className="mt-[10px] max-w-[56ch] text-[14px]/[1.65] text-cream/85 nav:mt-3 nav:text-[15.5px]/[1.7]">
-          Aucune formule ne se choisit à l’aveugle. Cette séance sert à comprendre votre
+          Aucune formule ne se choisit à l’aveugle. Cet entretien sert à comprendre votre
           situation et à vous orienter vers l’accompagnement adapté. Le tarif et les
           modalités de paiement sont discutés à ce moment-là.
         </p>
         <ButtonLink href={routes.booking} block className="mt-[18px] nav:mt-[22px] nav:w-auto">
-          <span className="nav:hidden">Réserver 30 min offertes</span>
-          <span className="hidden nav:inline">Réserver ma séance gratuite de 30min</span>
+          {/* Texte long à partir de `lg` seulement : entre 900 et 1023 px, la colonne
+              (355 px) est plus étroite que lui (367 px) et le couperait en deux. */}
+          <span className="lg:hidden">Réserver mes 20 min offertes</span>
+          <span className="hidden lg:inline">Réserver mon entretien gratuit de 20 minutes</span>
         </ButtonLink>
       </div>
 
@@ -96,9 +105,6 @@ function FreeSessionBanner() {
             </dd>
           </div>
         </dl>
-        <p className="mt-[14px] text-[12.5px]/[1.6] text-cream/70 nav:mt-4 nav:text-[13px]">
-          {site.pricing.note}
-        </p>
       </div>
     </div>
   );

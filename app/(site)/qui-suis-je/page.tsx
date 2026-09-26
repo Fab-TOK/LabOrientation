@@ -142,7 +142,7 @@ export default function AboutPage() {
           <div className="rounded-[14px] bg-peach p-[22px] nav:rounded-[16px] nav:p-[26px]">
             <div className="text-[16px]/[1.3] font-semibold">Faisons connaissance</div>
             <p className="mt-2 text-[13.5px]/[1.6] text-slate/80">
-              30 minutes offertes pour comprendre votre situation, sans engagement.
+              20 minutes offertes pour comprendre votre situation, sans engagement.
             </p>
             <ButtonLink href={routes.contact} block className="mt-4">
               Prenons contact

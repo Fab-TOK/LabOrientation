@@ -5,7 +5,6 @@ import { useId, useState } from "react";
 import { Audience } from "@/components/ui/Bits";
 import type { Offer } from "@/content/formulas";
 import { routes } from "@/content/site";
-import { cn } from "@/lib/cn";
 
 /**
  * Fiche d’offre de la page Nos offres.
@@ -21,10 +20,7 @@ export function OfferCard({ offer }: { offer: Offer }) {
   return (
     <li
       id={offer.slug}
-      className={cn(
-        "scroll-mt-24 overflow-hidden rounded-[14px] bg-offwhite nav:rounded-[16px]",
-        offer.featured ? "border-[1.5px] border-slate" : "border border-slate/14",
-      )}
+      className="scroll-mt-24 overflow-hidden rounded-[14px] border border-slate/14 bg-offwhite nav:rounded-[16px]"
     >
       <div className="flex flex-col p-[22px] pb-0 nav:p-[30px] nav:pb-0">
         {/* Garde-fou : si un libellé s’allonge, la pastille descend d’une

@@ -5,7 +5,7 @@ const event: CalendarEvent = {
   date: "2026-10-13",
   slot: "14:00",
   title: "Séance de mise en contact — Lab’Orientation",
-  description: "Échange de 30 minutes, gratuit; sans engagement",
+  description: "Échange de 20 minutes, gratuit; sans engagement",
   location: "Visioconférence, lien par e-mail",
 };
 
@@ -28,7 +28,7 @@ describe("buildIcs", () => {
 
   it("convertit l’heure de Cotonou (UTC+1) en UTC", () => {
     expect(ics).toContain("DTSTART:20261013T130000Z");
-    expect(ics).toContain("DTEND:20261013T133000Z");
+    expect(ics).toContain("DTEND:20261013T132000Z");
   });
 
   it("horodate l’événement", () => {
@@ -36,7 +36,7 @@ describe("buildIcs", () => {
   });
 
   it("échappe les virgules et les points-virgules", () => {
-    expect(ics).toContain("DESCRIPTION:Échange de 30 minutes\\, gratuit\\; sans engagement");
+    expect(ics).toContain("DESCRIPTION:Échange de 20 minutes\\, gratuit\\; sans engagement");
     expect(ics).toContain("LOCATION:Visioconférence\\, lien par e-mail");
   });
 
@@ -52,7 +52,7 @@ describe("googleCalendarUrl", () => {
 
     expect(url.origin + url.pathname).toBe("https://calendar.google.com/calendar/render");
     expect(url.searchParams.get("action")).toBe("TEMPLATE");
-    expect(url.searchParams.get("dates")).toBe("20261013T130000Z/20261013T133000Z");
+    expect(url.searchParams.get("dates")).toBe("20261013T130000Z/20261013T132000Z");
     expect(url.searchParams.get("text")).toBe(event.title);
     expect(url.searchParams.get("location")).toBe(event.location);
   });

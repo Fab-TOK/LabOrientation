@@ -42,7 +42,7 @@ export default function FaqPage() {
           <div className="hidden rounded-[16px] bg-peach p-6 nav:block">
             <p className="text-[15.5px]/[1.3] font-semibold">Votre question n’y est pas ?</p>
             <p className="mt-2 text-[13.5px]/[1.6] text-slate/82">
-              Posez-la lors de la séance offerte de 30 minutes.
+              Posez-la lors de l’entretien préalable gratuit de 20 minutes.
             </p>
             <ButtonLink href={routes.contact} variant="slate" block className="mt-[14px]">
               Prenons contact
@@ -68,7 +68,7 @@ export default function FaqPage() {
           <div className="mt-7 rounded-[12px] bg-peach p-5 nav:hidden">
             <p className="text-[15.5px]/[1.3] font-semibold">Votre question n’y est pas ?</p>
             <p className="mt-2 text-[13.5px]/[1.6] text-slate/82">
-              Posez-la lors de la séance offerte de 30 minutes.
+              Posez-la lors de l’entretien préalable gratuit de 20 minutes.
             </p>
             <ButtonLink href={routes.contact} variant="slate" block className="mt-[14px]">
               Prenons contact

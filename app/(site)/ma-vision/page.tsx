@@ -82,8 +82,8 @@ export default function VisionPage() {
             </p>
           </div>
           <ButtonLink href={routes.booking} block className="flex-none nav:w-auto">
-            <span className="nav:hidden">Réserver 30 min offertes</span>
-            <span className="hidden nav:inline">Réserver ma séance gratuite de 30min</span>
+            <span className="nav:hidden">Réserver mes 20 min offertes</span>
+            <span className="hidden nav:inline">Réserver mon entretien gratuit de 20 minutes</span>
           </ButtonLink>
         </div>
       </section>

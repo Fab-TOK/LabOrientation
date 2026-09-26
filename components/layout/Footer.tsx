@@ -37,33 +37,50 @@ export function Footer() {
           </FooterColumn>
 
           <FooterColumn title="Contact">
-            <a href={site.phoneHref} className="hover:text-cream">
-              {site.phone}
-            </a>
-            <a
-              href={site.whatsapp}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="hover:text-cream"
-            >
-              WhatsApp
-            </a>
-            <a href={site.emailHref} className="hover:text-cream">
-              {site.email}
-            </a>
+            <ContactItem label="Téléphone">
+              <a href={site.phoneHref} className="hover:text-cream">
+                {site.phone}
+              </a>
+            </ContactItem>
+            <ContactItem label="WhatsApp">
+              {/* Le numéro WhatsApp n’est jamais affiché : seulement ce libellé. */}
+              <a
+                href={site.whatsapp}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="font-semibold text-peach hover:underline"
+              >
+                Écrire sur WhatsApp <span aria-hidden="true">→</span>
+              </a>
+            </ContactItem>
+            <ContactItem label="E-mail">
+              <a href={site.emailHref} className="hover:text-cream">
+                {site.email}
+              </a>
+            </ContactItem>
           </FooterColumn>
         </div>
 
         <div className="hidden flex-col nav:flex">
           <div className="t-label border-b border-cream/18 pb-[14px] text-cream/50">
-            Séance découverte
+            Entretien préalable gratuit
           </div>
           <p className="mt-4 text-[13.5px]/[1.6] text-cream/82">
-            30 minutes, offertes, sans engagement. En français ou en anglais.
+            20 minutes, offertes, sans engagement. En français ou en anglais.
           </p>
         </div>
       </div>
     </footer>
+  );
+}
+
+/** Une coordonnée : petit intitulé au-dessus, valeur cliquable en dessous. */
+function ContactItem({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-[2px] nav:gap-1">
+      <span className="text-[11.5px]/[1.3] text-cream/55 nav:text-[12px]">{label}</span>
+      {children}
+    </div>
   );
 }
 
