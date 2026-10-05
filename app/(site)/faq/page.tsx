@@ -7,12 +7,13 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { faqPage } from "@/content/structured-data";
 import { faqSections } from "@/content/faq";
 import { routes } from "@/content/site";
+import { pageAddress } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Questions fréquentes",
   description:
     "À qui s’adresse Lab’Orientation, comment se déroule un accompagnement, en quelle langue, à quel tarif : les réponses aux questions les plus posées.",
-  alternates: { canonical: routes.faq },
+  ...pageAddress(routes.faq),
 };
 
 export default function FaqPage() {

@@ -27,10 +27,15 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 nav:contents">
+        {/* Sous 340 px (iPhone 5, premier iPhone SE), l’adresse e-mail et le
+            lien WhatsApp ne tiennent pas dans une demi-largeur : « Contact »
+            passe sous « Le site ». */}
+        <div className="grid grid-cols-2 gap-4 max-[340px]:grid-cols-1 max-[340px]:gap-y-6 nav:contents">
           <FooterColumn title="Le site">
+            {/* Sans coupure : à 900 px, la colonne s’élargit pour garder
+                « Les accompagnements » sur une ligne. */}
             {footerNav.map((item) => (
-              <Link key={item.href} href={item.href} className="hover:text-cream">
+              <Link key={item.href} href={item.href} className="whitespace-nowrap hover:text-cream">
                 {item.label}
               </Link>
             ))}

@@ -4,21 +4,40 @@ import { useId, type ReactNode, type SelectHTMLAttributes, type InputHTMLAttribu
 import { NumberPill } from "@/components/ui/Bits";
 import { cn } from "@/lib/cn";
 
-/** En-tête d’un bloc numéroté du formulaire. */
+/** Astérisque terracotta des champs obligatoires ; l’obligation est aussi portée par `aria-required`. */
+export function Required() {
+  return (
+    <span aria-hidden="true" className="ml-[3px] font-bold text-terracotta">
+      *
+    </span>
+  );
+}
+
+/** En-tête d’un bloc numéroté du formulaire, avec sa mention obligatoire ou facultative. */
 export function FormStep({
   number,
   title,
+  status,
   children,
 }: {
   number: string;
   title: string;
+  status?: "required" | "optional";
   children: ReactNode;
 }) {
   return (
     <fieldset>
-      <legend className="flex items-center gap-[14px]">
-        <NumberPill className="size-[30px]">{number}</NumberPill>
-        <span className="font-serif text-[22px]/[1.2] nav:text-[28px]">{title}</span>
+      <legend className="flex items-center gap-[11px] nav:gap-[14px]">
+        <NumberPill className="size-7 text-[11.5px] nav:size-[30px] nav:text-[12px]">{number}</NumberPill>
+        <span className="caps-align font-serif text-[23px]/[1.2] nav:text-[26px]">
+          {title}
+          {status === "required" && <Required />}
+          {status === "optional" && (
+            <span className="ml-[10px] font-sans text-[13px]/none text-slate/55 nav:text-[14px]">
+              (facultatif)
+            </span>
+          )}
+        </span>
       </legend>
       {children}
     </fieldset>
@@ -26,13 +45,7 @@ export function FormStep({
 }
 
 export function StepDivider() {
-  return <div className="my-7 h-px bg-slate/12 nav:my-9" aria-hidden="true" />;
-}
-
-export function SubLabel({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <div className={cn("text-[14px]/none font-semibold text-slate/75", className)}>{children}</div>
-  );
+  return <div className="my-7 h-px bg-slate/12 nav:my-[34px]" aria-hidden="true" />;
 }
 
 export function FieldError({ id, message }: { id: string; message?: string }) {
@@ -44,7 +57,7 @@ export function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-/** Grande option cliquable avec un rond de radio, blocs 01 et 04. */
+/** Grande option cliquable avec un rond de radio. */
 export function RadioCard({
   name,
   value,
@@ -61,10 +74,8 @@ export function RadioCard({
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-center gap-3 rounded-[12px] border-[1.5px] px-5 py-[18px] transition-colors",
-        checked
-          ? "border-slate bg-slate text-cream"
-          : "border-slate/18 hover:border-slate/35",
+        "flex cursor-pointer items-center gap-3 rounded-[12px] border-[1.5px] px-[18px] py-[17px] transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-turquoise nav:px-5 nav:py-[18px]",
+        checked ? "border-slate bg-slate text-cream" : "border-slate/18 bg-white hover:border-slate/35",
       )}
     >
       <input
@@ -83,88 +94,16 @@ export function RadioCard({
         )}
         style={checked ? { boxShadow: "inset 0 0 0 3px var(--color-slate)" } : undefined}
       />
-      <span className={cn("text-[15px]/[1.3]", checked ? "font-semibold" : "font-medium")}>
+      {/* Décalage de 0,083em : les capitales de Figtree remontent dans leur
+          ligne ; ainsi centrées sur le rond (mesuré). */}
+      <span
+        className={cn(
+          "pt-[0.083em] -mb-[0.083em] text-[15px]/[1.3]",
+          checked ? "font-semibold" : "font-medium",
+        )}
+      >
         {children}
       </span>
-    </label>
-  );
-}
-
-/** Pastille de sélection, niveaux scolaires. */
-export function ChoiceChip({
-  name,
-  value,
-  checked,
-  onChange,
-  children,
-}: {
-  name: string;
-  value: string;
-  checked: boolean;
-  onChange: (value: string) => void;
-  children: ReactNode;
-}) {
-  return (
-    <label
-      className={cn(
-        "cursor-pointer rounded-full border-[1.5px] px-[22px] py-3 text-[14.5px]/none transition-colors",
-        checked
-          ? "border-turquoise bg-turquoise font-semibold text-white"
-          : "border-slate/18 font-medium hover:border-slate/35",
-      )}
-    >
-      <input
-        type="radio"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={() => onChange(value)}
-        className="sr-only"
-      />
-      {children}
-    </label>
-  );
-}
-
-/** Tuile de sélection, accompagnements souhaités. */
-export function ChoiceTile({
-  name,
-  value,
-  checked,
-  onChange,
-  dashed,
-  className,
-  children,
-}: {
-  name: string;
-  value: string;
-  checked: boolean;
-  onChange: (value: string) => void;
-  dashed?: boolean;
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <label
-      className={cn(
-        "cursor-pointer rounded-[11px] border-[1.5px] px-[18px] py-[14px] text-[14.5px]/[1.3] transition-colors",
-        checked
-          ? "border-turquoise bg-turquoise/12 font-semibold"
-          : dashed
-            ? "border-dashed border-slate/30 font-medium text-slate/70 hover:border-slate/50"
-            : "border-slate/18 font-medium hover:border-slate/35",
-        className,
-      )}
-    >
-      <input
-        type="radio"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={() => onChange(value)}
-        className="sr-only"
-      />
-      {children}
     </label>
   );
 }
@@ -187,7 +126,7 @@ export function TextField({ label, error, ...input }: TextFieldProps) {
         {...input}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="field mt-2"
+        className="field mt-[9px]"
       />
       <FieldError id={errorId} message={error} />
     </div>
@@ -197,6 +136,7 @@ export function TextField({ label, error, ...input }: TextFieldProps) {
 type SelectFieldProps = {
   label: ReactNode;
   error?: string;
+  /** Première option, valeur vide : affichée en gris, comme un texte indicatif. */
   placeholder: string;
   options: { value: string; label: string }[];
 } & SelectHTMLAttributes<HTMLSelectElement>;
@@ -209,13 +149,13 @@ export function SelectField({ label, error, placeholder, options, ...select }: S
       <label htmlFor={id} className="t-field-label block text-slate/75">
         {label}
       </label>
-      <div className="relative mt-2">
+      <div className="relative mt-[9px]">
         <select
           id={id}
           {...select}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="field cursor-pointer appearance-none pr-11"
+          className={cn("field cursor-pointer appearance-none pr-11", !select.value && "text-slate/40")}
         >
           <option value="">{placeholder}</option>
           {options.map((option) => (
@@ -226,7 +166,7 @@ export function SelectField({ label, error, placeholder, options, ...select }: S
         </select>
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 right-[18px] -translate-y-1/2 text-slate/50"
+          className="pointer-events-none absolute top-1/2 right-[18px] -translate-y-1/2 text-[13px]/none text-slate/45"
         >
           ▾
         </span>
@@ -241,7 +181,7 @@ type TextAreaProps = {
   error?: string;
 } & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export function TextArea({ label, error, ...textarea }: TextAreaProps) {
+export function TextArea({ label, error, className, ...textarea }: TextAreaProps) {
   const id = useId();
   const errorId = `${id}-error`;
   return (
@@ -256,48 +196,8 @@ export function TextArea({ label, error, ...textarea }: TextAreaProps) {
         {...textarea}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className={cn("field resize-y", label ? "mt-2" : undefined)}
+        className={cn("field resize-y", label ? "mt-[9px]" : undefined, className)}
       />
-      <FieldError id={errorId} message={error} />
-    </div>
-  );
-}
-
-export function Checkbox({
-  checked,
-  onChange,
-  error,
-  children,
-}: {
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-  error?: string;
-  children: ReactNode;
-}) {
-  const id = useId();
-  const errorId = `${id}-error`;
-  return (
-    <div>
-      <label className="flex cursor-pointer items-start gap-3">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(event) => onChange(event.target.checked)}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
-          className="sr-only"
-        />
-        <span
-          aria-hidden="true"
-          className={cn(
-            "mt-px flex size-5 flex-none items-center justify-center rounded-[5px] border text-[12px] font-bold text-white transition-colors",
-            checked ? "border-turquoise bg-turquoise" : "border-slate/30",
-          )}
-        >
-          {checked ? "✓" : ""}
-        </span>
-        <span className="text-[13.5px]/[1.6] text-slate/80">{children}</span>
-      </label>
       <FieldError id={errorId} message={error} />
     </div>
   );

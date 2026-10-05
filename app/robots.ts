@@ -1,20 +1,16 @@
 import type { MetadataRoute } from "next";
-import { routes, siteUrl } from "@/content/site";
+import { siteUrl } from "@/content/site";
 
 /**
- * Génère `/robots.txt`.
- *
- * `robots.txt` commande l’exploration, pas l’indexation : c’est la balise
- * `<meta name="robots" content="noindex">` qui empêche une page de ressortir
- * dans les résultats. Le tunnel de réservation porte déjà cette balise
- * (`app/reserver/layout.tsx`) ; on lui épargne ici l’exploration en plus.
+ * Génère `/robots.txt` : tout le site est ouvert, sauf les routes d’API, qui
+ * ne servent qu’au formulaire.
  */
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [routes.booking, "/api/"],
+      disallow: ["/api/"],
     },
     sitemap: new URL("/sitemap.xml", siteUrl).toString(),
   };

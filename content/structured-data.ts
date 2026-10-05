@@ -5,7 +5,7 @@
  * Aucune valeur n’est inventée : tout vient de `site.ts` et de `faq.ts`.
  */
 import { faqSections } from "@/content/faq";
-import { routes, site, siteUrl } from "@/content/site";
+import { fromPrice, routes, site, siteUrl } from "@/content/site";
 
 const absolute = (path: string) => new URL(path, siteUrl).toString();
 
@@ -31,11 +31,12 @@ export const professionalService = {
     { "@type": "Place", name: "International" },
   ],
   availableLanguage: ["fr", "en"],
-  priceRange: site.pricing.benin.from,
+  priceRange: fromPrice(site.pricing.zones[0].session),
+  /* L’entretien se demande par le formulaire de contact : Johana rappelle pour fixer l’heure. */
   potentialAction: {
     "@type": "ReserveAction",
     name: `Entretien préalable gratuit de ${site.freeSessionMinutes} minutes`,
-    target: absolute(routes.booking),
+    target: absolute(routes.contact),
   },
 };
 

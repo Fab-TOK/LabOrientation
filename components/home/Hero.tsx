@@ -48,7 +48,7 @@ export function Hero() {
           className="anim-rise mt-5 flex flex-col gap-[10px] nav:mt-7 nav:flex-row nav:flex-wrap nav:gap-[14px]"
           style={{ "--i": 4 } as React.CSSProperties}
         >
-          <ButtonLink href={routes.booking} block className="nav:w-auto">
+          <ButtonLink href={routes.contact} block className="nav:w-auto">
             <span className="nav:hidden">Réserver mes 20 min offertes</span>
             <span className="hidden nav:inline">Réserver mon entretien gratuit de 20 minutes</span>
           </ButtonLink>

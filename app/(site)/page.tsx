@@ -11,10 +11,11 @@ import { CtaCard } from "@/components/home/CtaCard";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { professionalService } from "@/content/structured-data";
 import { routes } from "@/content/site";
+import { pageAddress } from "@/lib/metadata";
 
 /* Titre et description viennent de la racine : l’accueil les porte déjà. */
 export const metadata: Metadata = {
-  alternates: { canonical: routes.home },
+  ...pageAddress(routes.home),
 };
 
 export default function HomePage() {

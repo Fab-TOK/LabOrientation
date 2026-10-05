@@ -3,15 +3,24 @@
 import Link from "next/link";
 import { useId, useState } from "react";
 import { Audience } from "@/components/ui/Bits";
-import type { Offer } from "@/content/formulas";
+import type { DetailItem, Offer } from "@/content/formulas";
 import { routes } from "@/content/site";
+import { cn } from "@/lib/cn";
+
+const BADGE_CLASS: Record<Offer["kind"], string> = {
+  parcours: "badge-formule",
+  candidature: "badge-candidature",
+  module: "badge-module",
+};
 
 /**
  * Fiche d’offre de la page Nos offres.
  *
  * Le dépliant est replié au chargement et s’anime via `.accordion-panel`,
- * la même mécanique que l’accordéon de la FAQ. La carte s’allonge seule :
- * la grille parente est en `items-start`, aucune voisine ne suit.
+ * la même mécanique que l’accordéon de la FAQ. Dans les familles à dépliant,
+ * la grille parente est en `items-start` : une carte dépliée s’allonge seule.
+ * Les candidatures n’en ont pas : leurs cartes prennent la hauteur de la plus
+ * haute, et le paragraphe extensible aligne leurs pieds de carte.
  */
 export function OfferCard({ offer }: { offer: Offer }) {
   const [open, setOpen] = useState(false);
@@ -20,23 +29,26 @@ export function OfferCard({ offer }: { offer: Offer }) {
   return (
     <li
       id={offer.slug}
-      className="scroll-mt-24 overflow-hidden rounded-[14px] border border-slate/14 bg-offwhite nav:rounded-[16px]"
+      className="flex scroll-mt-24 flex-col overflow-hidden rounded-[14px] border border-slate/14 bg-offwhite nav:rounded-[16px]"
     >
-      <div className="flex flex-col p-[22px] pb-0 nav:p-[30px] nav:pb-0">
+      <div className="flex flex-1 flex-col p-[22px] pb-0 nav:p-[30px] nav:pb-0">
         {/* Garde-fou : si un libellé s’allonge, la pastille descend d’une
             ligne au lieu d’écraser le badge, qui ne se coupe jamais. */}
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-          <span className={offer.kind === "module" ? "badge-module" : "badge-formule"}>
-            {offer.badge}
-          </span>
-          {offer.kind === "parcours" && (
+          <span className={BADGE_CLASS[offer.kind]}>{offer.badge}</span>
+          {offer.kind !== "module" && (
             <span className="badge-level">
               <Audience label={offer.audience} />
             </span>
           )}
         </div>
 
-        <h3 className="mt-4 font-serif text-[23px]/[1.15] nav:mt-[18px] nav:text-[28px]">
+        <h3
+          className={cn(
+            "mt-4 font-serif text-[23px]/[1.15] text-balance nav:mt-[18px]",
+            offer.kind === "candidature" ? "nav:text-[26px]" : "nav:text-[28px]",
+          )}
+        >
           {offer.title}
         </h3>
 
@@ -45,7 +57,7 @@ export function OfferCard({ offer }: { offer: Offer }) {
         </p>
 
         {offer.description && (
-          <p className="mt-3 text-[14.5px]/[1.65] text-slate/78 text-pretty nav:mt-[14px] nav:text-[15px]/[1.7]">
+          <p className="mt-3 flex-1 text-[14.5px]/[1.65] text-slate/78 text-pretty nav:mt-[14px] nav:text-[15px]/[1.7]">
             {offer.description}
           </p>
         )}
@@ -60,45 +72,47 @@ export function OfferCard({ offer }: { offer: Offer }) {
 
       {/* Boîte encastrée, pas un bandeau : les marges horizontales valent le
           `padding` de la carte pour s’aligner sur le texte au-dessus. */}
-      <div className="mx-[22px] mt-2 rounded-xl bg-sand nav:mx-[30px] nav:mt-[10px]">
-        <h4>
-          <button
-            type="button"
-            onClick={() => setOpen((current) => !current)}
-            aria-expanded={open}
-            aria-controls={panelId}
-            className="flex w-full items-center justify-between gap-3 px-4 py-[14px] text-left nav:gap-[14px] nav:px-5 nav:py-[15px]"
-          >
-            <span className="text-[11px]/none font-bold tracking-[0.08em] text-slate/62 uppercase nav:text-[12px]">
-              {offer.detail.label}
-            </span>
-            <span
-              aria-hidden="true"
-              className="flex-none text-[18px]/none text-terracotta nav:text-[20px]"
+      {offer.detail && (
+        <div className="mx-[22px] mt-2 rounded-xl bg-sand nav:mx-[30px] nav:mt-[10px]">
+          <h4>
+            <button
+              type="button"
+              onClick={() => setOpen((current) => !current)}
+              aria-expanded={open}
+              aria-controls={panelId}
+              className="flex w-full items-center justify-between gap-3 px-4 py-[14px] text-left nav:gap-[14px] nav:px-5 nav:py-[15px]"
             >
-              {open ? "−" : "+"}
-            </span>
-          </button>
-        </h4>
+              <span className="text-[11px]/none font-bold tracking-[0.08em] text-slate/62 uppercase nav:text-[12px]">
+                {offer.detail.label}
+              </span>
+              <span
+                aria-hidden="true"
+                className="flex-none text-[18px]/none text-terracotta nav:text-[20px]"
+              >
+                {open ? "−" : "+"}
+              </span>
+            </button>
+          </h4>
 
-        <div id={panelId} className="accordion-panel" data-open={open}>
-          <div>
-            <ul className="flex flex-col gap-[10px] px-4 pb-4 nav:gap-[11px] nav:px-5 nav:pb-[18px]">
-              {offer.detail.items.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-[11px] text-[14.5px]/[1.5] text-slate/85 nav:gap-3 nav:text-[15px]"
-                >
-                  <span aria-hidden="true" className="font-bold text-turquoise">
-                    ·
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+          <div id={panelId} className="accordion-panel" data-open={open}>
+            <div>
+              <ul className="flex flex-col gap-[10px] px-4 pb-4 nav:gap-[11px] nav:px-5 nav:pb-[18px]">
+                {offer.detail.items.map((item) => (
+                  <li
+                    key={typeof item === "string" ? item : `${item.text}-${item.aside.join("")}`}
+                    className="flex gap-[11px] text-[14.5px]/[1.5] text-slate/85 nav:gap-3 nav:text-[15px]"
+                  >
+                    <span aria-hidden="true" className="font-bold text-turquoise">
+                      ·
+                    </span>
+                    <DetailText item={item} />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="p-[22px] pt-[18px] nav:p-[30px] nav:pt-[22px]">
         <Link
@@ -109,6 +123,19 @@ export function OfferCard({ offer }: { offer: Offer }) {
         </Link>
       </div>
     </li>
+  );
+}
+
+/** « Faire le point sur soi (1ʳᵉ partie) », la parenthèse en gris. */
+function DetailText({ item }: { item: DetailItem }) {
+  if (typeof item === "string") return <span>{item}</span>;
+  return (
+    <span>
+      {item.text}{" "}
+      <span className="text-slate/50">
+        <Audience label={item.aside} />
+      </span>
+    </span>
   );
 }
 

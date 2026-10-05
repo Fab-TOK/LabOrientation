@@ -10,7 +10,7 @@ export type NavItem = { label: string; href: string };
 export const desktopNav: NavItem[] = [
   { label: "Accueil", href: routes.home },
   { label: "Qui suis-je ?", href: routes.about },
-  { label: "Nos offres", href: routes.offers },
+  { label: "Les accompagnements", href: routes.offers },
   { label: "Témoignages", href: routes.testimonials },
   { label: "FAQ", href: routes.faq },
 ];
@@ -20,7 +20,7 @@ export const mobileNav: NavItem[] = [
   { label: "Accueil", href: routes.home },
   { label: "Qui suis-je ?", href: routes.about },
   { label: "Ma vision", href: routes.vision },
-  { label: "Nos offres", href: routes.offers },
+  { label: "Les accompagnements", href: routes.offers },
   { label: "Témoignages", href: routes.testimonials },
   { label: "FAQ", href: routes.faq },
   { label: "Prenons contact", href: routes.contact },
@@ -30,7 +30,7 @@ export const mobileNav: NavItem[] = [
 export const footerNav: NavItem[] = [
   { label: "Qui suis-je ?", href: routes.about },
   { label: "Ma vision", href: routes.vision },
-  { label: "Nos offres", href: routes.offers },
+  { label: "Les accompagnements", href: routes.offers },
   { label: "Témoignages", href: routes.testimonials },
   { label: "FAQ", href: routes.faq },
 ];

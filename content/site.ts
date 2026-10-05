@@ -17,27 +17,50 @@ export const site = {
   whatsapp: "https://wa.me/22997275797",
   email: "johana@laborientation.com",
   emailHref: "mailto:johana@laborientation.com",
+  /** Adresse d’expédition des e-mails du site : un alias de la boîte de Johana. */
+  senderEmail: "contact@laborientation.com",
+  /**
+   * Tarifs planchers par zone : une séance, un parcours. Le Bénin vient en
+   * premier : c’est la zone affichée par défaut.
+   */
   pricing: {
     /* \u00a0 : espace insécable, pour que le montant ne se coupe jamais en fin de ligne. */
-    benin: {
-      label: "Bénin",
-      from: "sur demande, dès 7\u00a0000\u00a0FCFA",
-      long: "Sur demande, à partir de 7\u00a0000\u00a0FCFA",
-    },
-    international: { label: "International", from: "dès 150\u00a0€", long: "à partir de 150\u00a0€" },
+    zones: [
+      {
+        id: "benin",
+        label: "Bénin",
+        session: { amount: "30\u00a0000", currency: "FCFA" },
+        parcours: { amount: "45\u00a0000", currency: "FCFA" },
+      },
+      {
+        id: "international",
+        label: "International",
+        session: { amount: "80", currency: "€" },
+        parcours: { amount: "140", currency: "€" },
+      },
+    ],
     note: "Aucun paiement ne se fait sur le site.",
   },
   /** Durée de l’entretien préalable gratuit, en minutes. */
   freeSessionMinutes: 20,
   /** Délai de réponse annoncé sur le formulaire de contact. */
-  responseDelay: "48 h ouvrées",
+  responseDelay: "48h ouvrées",
 } as const;
+
+export type PricingZone = (typeof site.pricing.zones)[number];
+export type Price = { readonly amount: string; readonly currency: string };
+
+/** « à partir de 30 000 FCFA » : le prix d’une séance, plancher d’une zone. */
+export const fromPrice = (price: Price) => `à partir de ${price.amount}\u00a0${price.currency}`;
 
 /**
  * Adresse publique du site, base de toutes les URL absolues : canoniques,
  * image de partage, sitemap. Surchargeable pour une préproduction.
+ *
+ * Avec www : c’est le domaine principal dans Vercel, qui y redirige
+ * laborientation.com. Les deux doivent toujours rester d’accord.
  */
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://laborientation.com";
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.laborientation.com";
 
 export const routes = {
   home: "/",
@@ -47,16 +70,9 @@ export const routes = {
   contact: "/contact",
   testimonials: "/temoignages",
   faq: "/faq",
-  booking: "/reserver",
-  bookingInfo: "/reserver/informations",
-  bookingConfirmation: "/reserver/confirmation",
 } as const;
 
-/**
- * Les sept pages publiques, celles qui entrent dans le sitemap.
- * Le tunnel de réservation en est volontairement absent : il porte déjà
- * `robots: { index: false }` et n'a aucun sens hors d'un parcours entamé.
- */
+/** Les sept pages publiques, celles qui entrent dans le sitemap. */
 export const publicRoutes = [
   routes.home,
   routes.about,

@@ -1,31 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { bookingSchema, contactSchema, fieldErrors } from "@/lib/validation";
+import { contactSchema, fieldErrors } from "@/lib/validation";
 
 const validContact = {
   contactType: "parent",
+  name: "Awa Koffi",
+  whatsapp: "+2290197275797",
+  email: "awa@exemple.com",
   level: "2nde",
   formula: "cap-sur-soi",
-  format: "visio",
   message: "Mon fils hésite entre plusieurs spécialités.",
-  name: "Awa Koffi",
-  youngName: "",
-  phone: "+229 97 27 57 97",
-  email: "awa@exemple.com",
-  country: "BJ",
-};
-
-const validBooking = {
-  date: "2026-10-13",
-  slot: "14:00",
-  participant: "parent",
-  name: "Awa Koffi",
-  youngName: "",
-  email: "awa@exemple.com",
-  phone: "",
-  level: "2nde",
-  format: "visio",
-  situation: "",
-  consent: true,
 };
 
 describe("contactSchema", () => {
@@ -33,8 +16,13 @@ describe("contactSchema", () => {
     expect(contactSchema.safeParse(validContact).success).toBe(true);
   });
 
-  it("accepte une demande minimale", () => {
-    const minimal = { contactType: "eleve", name: "Awa Koffi", email: "awa@exemple.com" };
+  it("accepte une demande minimale : qui, nom, WhatsApp, e-mail", () => {
+    const minimal = {
+      contactType: "eleve",
+      name: "Awa Koffi",
+      whatsapp: "+2290197275797",
+      email: "awa@exemple.com",
+    };
     expect(contactSchema.safeParse(minimal).success).toBe(true);
   });
 
@@ -50,6 +38,22 @@ describe("contactSchema", () => {
     if (!result.success) expect(fieldErrors(result.error).name).toMatch(/nom et prénom/i);
   });
 
+  it("refuse un lien ou une adresse dans le nom, anti-robots", () => {
+    for (const name of ["Gagnez http://spam.example", "www.spam.example", "awa@spam.example"]) {
+      const result = contactSchema.safeParse({ ...validContact, name });
+      expect(result.success, `« ${name} » devrait être refusé`).toBe(false);
+      if (!result.success) {
+        expect(fieldErrors(result.error).name).toBe("Indiquez seulement votre nom et prénom.");
+      }
+    }
+  });
+
+  it("accepte un nom avec accents, trait d’union et apostrophe", () => {
+    for (const name of ["Éloïse N’Guessan-Adjovi", "Jean-Baptiste Hounkpè"]) {
+      expect(contactSchema.safeParse({ ...validContact, name }).success, name).toBe(true);
+    }
+  });
+
   it("refuse une adresse e-mail mal formée", () => {
     for (const email of ["", "awa", "awa@", "awa@exemple", "awa exemple.com"]) {
       const result = contactSchema.safeParse({ ...validContact, email });
@@ -57,82 +61,80 @@ describe("contactSchema", () => {
     }
   });
 
-  it("accepte un téléphone international, avec ou sans séparateurs", () => {
-    for (const phone of ["+229 01 97 27 57 97", "+229 97 27 57 97", "06 12 34 56 78", "+33612345678", "0033-6-12-34-56-78", ""]) {
-      const result = contactSchema.safeParse({ ...validContact, phone });
-      expect(result.success, `« ${phone} » devrait être acceptée`).toBe(true);
+  describe("numéro WhatsApp", () => {
+    it("est obligatoire", () => {
+      const result = contactSchema.safeParse({ ...validContact, whatsapp: "" });
+      expect(result.success).toBe(false);
+      if (!result.success) expect(fieldErrors(result.error).whatsapp).toMatch(/WhatsApp/);
+    });
+
+    it("accepte un numéro valable pour son pays", () => {
+      for (const whatsapp of [
+        "+2290197275797", // Bénin, 10 chiffres
+        "+22890123456", // Togo
+        "+2250701020304", // Côte d’Ivoire
+        "+33612345678", // France
+        "+32470123456", // Belgique
+      ]) {
+        const result = contactSchema.safeParse({ ...validContact, whatsapp });
+        expect(result.success, `« ${whatsapp} » devrait être accepté`).toBe(true);
+      }
+    });
+
+    it("accepte un numéro béninois à 8 ou 10 chiffres, quels que soient les premiers", () => {
+      for (const whatsapp of ["+22997275797", "+2290197275797", "+2299727579700"]) {
+        const result = contactSchema.safeParse({ ...validContact, whatsapp });
+        expect(result.success, `« ${whatsapp} » devrait être accepté`).toBe(true);
+      }
+    });
+
+    it("refuse un numéro béninois de 7 ou 9 chiffres, en rappelant le format", () => {
+      for (const whatsapp of ["+2299727579", "+229972757970"]) {
+        const result = contactSchema.safeParse({ ...validContact, whatsapp });
+        expect(result.success, `« ${whatsapp} » devrait être refusé`).toBe(false);
+        if (!result.success) expect(fieldErrors(result.error).whatsapp).toMatch(/8 ou 10 chiffres/);
+      }
+    });
+
+    it("refuse un numéro incomplet ou fantaisiste", () => {
+      for (const whatsapp of ["+229", "+2291234", "+33123", "appelez-moi"]) {
+        const result = contactSchema.safeParse({ ...validContact, whatsapp });
+        expect(result.success, `« ${whatsapp} » devrait être refusé`).toBe(false);
+      }
+    });
+  });
+
+  it("accepte les classes de la liste, et rien d’autre", () => {
+    for (const level of ["", "4e", "terminale", "etudes-superieures", "vie-active", "autre"]) {
+      expect(contactSchema.safeParse({ ...validContact, level }).success, level).toBe(true);
     }
+    expect(contactSchema.safeParse({ ...validContact, level: "cm2" }).success).toBe(false);
   });
 
-  it("refuse un téléphone trop court ou alphabétique", () => {
-    for (const phone of ["12345", "appelez-moi"]) {
-      const result = contactSchema.safeParse({ ...validContact, phone });
-      expect(result.success, `« ${phone} » devrait être refusée`).toBe(false);
-    }
-  });
-
-  it("refuse une formule inconnue mais accepte « je ne sais pas encore »", () => {
-    expect(contactSchema.safeParse({ ...validContact, formula: "formule-inventee" }).success).toBe(
-      false,
-    );
-    expect(
-      contactSchema.safeParse({ ...validContact, formula: "je-ne-sais-pas-encore" }).success,
-    ).toBe(true);
-    expect(
-      contactSchema.safeParse({ ...validContact, formula: "module-parcoursup" }).success,
-    ).toBe(true);
-  });
-
-  it("refuse les formules retirées de la gamme", () => {
-    for (const slug of [
-      "ateliers-collectifs",
-      "bilan-d-orientation",
-      "parcours-complet",
-      "formation-aux-professionnels",
-      "premier-pas",
+  it("accepte les dix offres et « je ne sais pas encore », refuse les autres", () => {
+    for (const formula of [
+      "",
+      "je-ne-sais-pas-encore",
+      "cap-reussite",
+      "parcoursup-phase-principale",
+      "module-bilan-d-orientation",
     ]) {
-      const result = contactSchema.safeParse({ ...validContact, formula: slug });
-      expect(result.success, `« ${slug} » ne devrait plus être accepté`).toBe(false);
+      expect(contactSchema.safeParse({ ...validContact, formula }).success, formula).toBe(true);
     }
-  });
-
-  it("refuse un pays hors liste", () => {
-    expect(contactSchema.safeParse({ ...validContact, country: "ZZ" }).success).toBe(false);
-  });
-});
-
-describe("bookingSchema", () => {
-  it("accepte une réservation complète", () => {
-    expect(bookingSchema.safeParse(validBooking).success).toBe(true);
-  });
-
-  it("exige une date au format ISO", () => {
-    for (const date of ["", "13/10/2026", "2026-10"]) {
-      expect(bookingSchema.safeParse({ ...validBooking, date }).success).toBe(false);
+    for (const formula of ["formule-inventee", "module-parcoursup", "ateliers-collectifs"]) {
+      expect(contactSchema.safeParse({ ...validContact, formula }).success, formula).toBe(false);
     }
-  });
-
-  it("exige un créneau au format HH:MM", () => {
-    for (const slot of ["", "14h", "9:00"]) {
-      expect(bookingSchema.safeParse({ ...validBooking, slot }).success).toBe(false);
-    }
-  });
-
-  it("exige le consentement", () => {
-    const result = bookingSchema.safeParse({ ...validBooking, consent: false });
-    expect(result.success).toBe(false);
-    if (!result.success) expect(fieldErrors(result.error).consent).toBeTruthy();
   });
 });
 
 describe("fieldErrors", () => {
   it("ne garde qu’un message par champ", () => {
-    const result = contactSchema.safeParse({ contactType: "", name: "", email: "" });
+    const result = contactSchema.safeParse({ contactType: "", name: "", whatsapp: "", email: "" });
     expect(result.success).toBe(false);
     if (result.success) return;
 
     const errors = fieldErrors(result.error);
-    expect(Object.keys(errors).sort()).toEqual(["contactType", "email", "name"]);
+    expect(Object.keys(errors).sort()).toEqual(["contactType", "email", "name", "whatsapp"]);
     expect(Object.values(errors).every((message) => typeof message === "string")).toBe(true);
   });
 });

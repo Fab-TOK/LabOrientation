@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/Button";
 import { Audience, Eyebrow } from "@/components/ui/Bits";
-import { parcours } from "@/content/formulas";
-import { routes, site } from "@/content/site";
+import { homeParcours } from "@/content/formulas";
+import { fromPrice, routes, site } from "@/content/site";
 
 export function FormulasTeaser() {
   return (
@@ -13,15 +13,15 @@ export function FormulasTeaser() {
           <h2 className="t-h2 mt-3 nav:mt-[14px]">Par où commencer</h2>
         </div>
         <p className="t-body mt-3 max-w-[40ch] text-slate/72 nav:mt-0 nav:mb-[6px]">
-          Trois parcours selon le niveau du jeune, complétés si besoin par des modules CV,
-          lettre de motivation ou Parcoursup.
+          Des parcours selon le niveau du jeune, complétés si besoin par un accompagnement
+          aux candidatures ou par des modules : bilan d’orientation, CV, lettre de motivation.
         </p>
       </div>
 
       {/* Trois colonnes à partir de `xl` seulement : voir la grille de la page
           Offres, mêmes cartes et même contrainte de largeur. */}
       <ul className="mt-[18px] grid gap-3 nav:mt-[34px] nav:gap-[22px] md:grid-cols-2 xl:grid-cols-3">
-        {parcours.map((offer) => (
+        {homeParcours.map((offer) => (
           <li key={offer.slug} className="card card-link flex flex-col p-[22px] nav:p-[30px]">
             {/* Garde-fou : si un libellé s’allonge, la pastille descend d’une
                 ligne au lieu d’écraser le badge, qui ne se coupe jamais. */}
@@ -75,7 +75,7 @@ function FreeSessionBanner() {
           situation et à vous orienter vers l’accompagnement adapté. Le tarif et les
           modalités de paiement sont discutés à ce moment-là.
         </p>
-        <ButtonLink href={routes.booking} block className="mt-[18px] nav:mt-[22px] nav:w-auto">
+        <ButtonLink href={routes.contact} block className="mt-[18px] nav:mt-[22px] nav:w-auto">
           {/* Texte long à partir de `lg` seulement : entre 900 et 1023 px, la colonne
               (355 px) est plus étroite que lui (367 px) et le couperait en deux. */}
           <span className="lg:hidden">Réserver mes 20 min offertes</span>
@@ -87,23 +87,24 @@ function FreeSessionBanner() {
 
       <div className="mt-[18px] border-t border-cream/20 pt-4 nav:mt-0 nav:border-t-0 nav:pt-0">
         <div className="t-label hidden text-cream/55 nav:block">Ensuite, selon la formule</div>
+        {/* Le prix d’une séance, plancher de chaque zone ; le détail est sur
+            la page Offres, avec l’interrupteur. */}
         <dl className="flex flex-col gap-3 nav:mt-[18px] nav:gap-[14px]">
-          <div className="flex items-baseline justify-between gap-[14px] nav:border-b nav:border-cream/20 nav:pb-[14px]">
-            <dt className="text-[13.5px]/none text-cream/70 nav:text-[14px]">
-              {site.pricing.benin.label}
-            </dt>
-            <dd className="text-[17px]/none font-semibold nav:text-[19px]">
-              {site.pricing.benin.from}
-            </dd>
-          </div>
-          <div className="flex items-baseline justify-between gap-[14px]">
-            <dt className="text-[13.5px]/none text-cream/70 nav:text-[14px]">
-              {site.pricing.international.label}
-            </dt>
-            <dd className="text-[17px]/none font-semibold nav:text-[19px]">
-              {site.pricing.international.from}
-            </dd>
-          </div>
+          {site.pricing.zones.map((zone, index) => (
+            <div
+              key={zone.id}
+              className={
+                index === 0
+                  ? "flex items-baseline justify-between gap-[14px] nav:border-b nav:border-cream/20 nav:pb-[14px]"
+                  : "flex items-baseline justify-between gap-[14px]"
+              }
+            >
+              <dt className="text-[13.5px]/none text-cream/70 nav:text-[14px]">{zone.label}</dt>
+              <dd className="text-[17px]/none font-semibold nav:text-[19px]">
+                {fromPrice(zone.session)}
+              </dd>
+            </div>
+          ))}
         </dl>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Bits";
 import { TestimonialCard } from "@/components/testimonials/TestimonialCard";
 import { routes } from "@/content/site";
+import { pageAddress } from "@/lib/metadata";
 import { testimonialCount, testimonials } from "@/content/testimonials";
 import { CountUp } from "@/components/ui/CountUp";
 
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title: "Témoignages",
   description:
     "Ce que disent les jeunes accompagnés par Lab’Orientation et leurs parents, dans leurs mots, repris intégralement.",
-  alternates: { canonical: routes.testimonials },
+  ...pageAddress(routes.testimonials),
 };
 
 export default function TestimonialsPage() {

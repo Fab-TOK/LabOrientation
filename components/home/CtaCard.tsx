@@ -13,7 +13,7 @@ export function CtaCard() {
           vers un projet d’avenir clair, réfléchi et ambitieux.
         </p>
         <div className="mt-[18px] flex flex-col justify-center gap-[10px] nav:mt-[26px] nav:flex-row nav:gap-[14px]">
-          <ButtonLink href={routes.booking} block className="nav:w-auto">
+          <ButtonLink href={routes.contact} block className="nav:w-auto">
             <span className="nav:hidden">Réserver mes 20 min offertes</span>
             <span className="hidden nav:inline">Réserver mon entretien gratuit de 20 minutes</span>
           </ButtonLink>

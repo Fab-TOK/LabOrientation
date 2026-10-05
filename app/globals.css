@@ -377,6 +377,9 @@
     align-self: flex-start;
     white-space: nowrap;
     padding: 8px 16px;
+    /* Les capitales de Figtree remontent de 0,075em dans leur ligne : on les
+       recentre dans la pastille (mesuré au navigateur). */
+    padding-block: calc(8px + 0.075em) calc(8px - 0.075em);
     border-radius: 999px;
     background: var(--color-turquoise);
     color: #fff;
@@ -394,8 +397,74 @@
     align-self: flex-start;
     white-space: nowrap;
     padding: 8px 16px;
+    /* Les capitales de Figtree remontent de 0,075em dans leur ligne : on les
+       recentre dans la pastille (mesuré au navigateur). */
+    padding-block: calc(8px + 0.075em) calc(8px - 0.075em);
     border-radius: 999px;
     background: --alpha(var(--color-turquoise) / 16%);
+    color: var(--color-slate);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Mise en avant de Cap Réussite, sur la carte ardoise : crème, texte ardoise. */
+  .badge-featured {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 6px 12px;
+    /* Les capitales de Figtree remontent de 0,075em dans leur ligne : on les
+       recentre dans la pastille (mesuré au navigateur). */
+    padding-block: calc(6px + 0.075em) calc(6px - 0.075em);
+    border-radius: 999px;
+    background: var(--color-cream);
+    color: var(--color-slate);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Les deux accompagnements qui composent Cap Réussite. */
+  .composition-chip {
+    padding: 8px 12px;
+    border-radius: 9px;
+    background: --alpha(var(--color-cream) / 8%);
+    border: 1px solid --alpha(var(--color-cream) / 20%);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  @media (min-width: 900px) {
+    .badge-featured {
+      padding: calc(8px + 0.075em) 14px calc(8px - 0.075em);
+      font-size: 12px;
+    }
+
+    .composition-chip {
+      padding: 9px 15px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+  }
+
+  /* Variante des candidatures : ardoise diluée. */
+  .badge-candidature {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    white-space: nowrap;
+    padding: 8px 16px;
+    /* Les capitales de Figtree remontent de 0,075em dans leur ligne : on les
+       recentre dans la pastille (mesuré au navigateur). */
+    padding-block: calc(8px + 0.075em) calc(8px - 0.075em);
+    border-radius: 999px;
+    background: --alpha(var(--color-slate) / 10%);
     color: var(--color-slate);
     font-weight: 700;
     font-size: 12px;
@@ -464,6 +533,8 @@
     align-items: center;
     justify-content: center;
     flex: none;
+    /* Chiffres recentrés optiquement : voir les badges. */
+    padding-top: 0.15em;
     width: 28px;
     height: 28px;
     border-radius: 999px;
@@ -510,6 +581,12 @@
     color: --alpha(var(--color-slate) / 35%);
   }
 
+  /* Une liste vide s’affiche en gris (texte indicatif) ; ses options, elles,
+     gardent la couleur du texte. */
+  .field option {
+    color: var(--color-slate);
+  }
+
   .field:focus {
     outline: none;
     border-color: var(--color-slate);
@@ -518,6 +595,49 @@
 
   .field[aria-invalid="true"] {
     border-color: var(--color-terracotta);
+  }
+
+  /* Champ composé (indicatif + numéro) : le cadre de `.field` porte sur le
+     groupe, les contrôles internes n’ont ni bordure ni fond. Même hauteur
+     qu’un `.field` simple : le numéro reprend ses marges et son interligne. */
+  .field-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid --alpha(var(--color-slate) / 18%);
+    border-radius: 11px;
+    overflow: hidden;
+    transition: border-color 150ms ease;
+  }
+
+  .field-group:focus-within {
+    border-color: var(--color-slate);
+  }
+
+  .field-group[data-invalid="true"] {
+    border-color: var(--color-terracotta);
+  }
+
+  /* `width: 0` : sans lui, la largeur propre d’un champ de saisie (environ
+     190 px) s’impose au formulaire sous 340 px. `flex: 1` lui rend toute la
+     place disponible. */
+  .field-group-input {
+    flex: 1;
+    min-width: 0;
+    width: 0;
+    padding: 15px 16px;
+    border: 0;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--color-slate);
+    caret-color: var(--color-terracotta);
+  }
+
+  .field-group-input:focus {
+    outline: none;
   }
 
   .link-underline {
@@ -638,6 +758,65 @@
 
   .accordion-panel > div {
     overflow: hidden;
+  }
+
+  /* Titre en Newsreader posé à côté d’une pastille numérotée : capitales
+     centrées sur la pastille (mesuré). Hauteur de ligne inchangée. */
+  .caps-align {
+    padding-top: 0.13em;
+    margin-bottom: -0.13em;
+  }
+
+  /* Bloc « Les tarifs » de la page Offres. Un seul ordre dans le document
+     (titre, interrupteur, prix, texte), deux dispositions. */
+  .pricing {
+    display: grid;
+    grid-template-areas: "title" "toggle" "prices" "text";
+  }
+
+  @media (min-width: 900px) {
+    .pricing {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "title prices" "text prices" "toggle prices";
+      align-items: start;
+      column-gap: 0;
+    }
+  }
+
+  .pricing-title {
+    grid-area: title;
+  }
+
+  .pricing-toggle {
+    grid-area: toggle;
+  }
+
+  .pricing-prices {
+    grid-area: prices;
+    align-self: center;
+  }
+
+  .pricing-text {
+    grid-area: text;
+  }
+
+  /* Libellé d’une option de l’interrupteur : sa version en gras, invisible et
+     sans hauteur, fixe la largeur. Le texte reste centré dans sa bulle, que
+     l’option soit choisie (gras) ou non. */
+  .toggle-option-label {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .toggle-option-label::after {
+    content: attr(data-label);
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    font-weight: 600;
+    user-select: none;
+    pointer-events: none;
   }
 }
 

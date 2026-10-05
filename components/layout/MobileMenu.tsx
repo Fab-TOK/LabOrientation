@@ -107,7 +107,7 @@ export function MobileMenu({
           <p className="mt-2 t-body-sm text-cream/82">
             Sans engagement, en présentiel au Bénin ou en visioconférence.
           </p>
-          <ButtonLink href={routes.booking} block className="mt-4" onClick={onClose}>
+          <ButtonLink href={routes.contact} block className="mt-4" onClick={onClose}>
             Réserver mes 20 min offertes
           </ButtonLink>
         </div>

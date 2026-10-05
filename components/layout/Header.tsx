@@ -38,6 +38,10 @@ export function Header() {
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "t-nav transition-colors",
+                    /* De 900 à 1 023 px, avec « Les accompagnements », les cinq
+                       liens et le bouton ne tiennent pas : « Accueil » s’efface,
+                       le logo y mène déjà. */
+                    item.href === routes.home && "max-lg:hidden",
                     active
                       ? "border-b-2 border-turquoise pb-1 text-slate"
                       : "text-slate/70 hover:text-slate",

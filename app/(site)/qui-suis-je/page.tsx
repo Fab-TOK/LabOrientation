@@ -16,13 +16,14 @@ import {
   troisRegards,
 } from "@/content/johana";
 import { routes } from "@/content/site";
+import { pageAddress } from "@/lib/metadata";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   title: "Qui suis-je ?",
   description:
     "Johana Ghionda, conseillère d’orientation et fondatrice de Lab’Orientation : un parcours international, une expertise de l’orientation et une connaissance du monde professionnel.",
-  alternates: { canonical: routes.about },
+  ...pageAddress(routes.about),
 };
 
 const bodyParagraph =

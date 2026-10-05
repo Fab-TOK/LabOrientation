@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, Newsreader } from "next/font/google";
 import { site, siteUrl } from "@/content/site";
+import { sharedOpenGraph } from "@/lib/metadata";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -25,13 +26,10 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Cabinet de conseil en orientation scolaire, universitaire et professionnelle fondé par Johana Ghionda. Des collégiens aux adultes en reconversion, en présentiel au Bénin et en visioconférence partout ailleurs.",
-  openGraph: {
-    type: "website",
-    locale: "fr_FR",
-    siteName: site.name,
-    url: siteUrl,
-  },
+    "Orientation scolaire, universitaire et professionnelle avec Johana Ghionda, des collégiens aux adultes. Au Bénin en présentiel, partout ailleurs en visio.",
+  /* Sans adresse : chaque page publique annonce la sienne (`pageAddress`). Le
+     tunnel et la page d’erreur laissent les réseaux prendre l’adresse partagée. */
+  openGraph: sharedOpenGraph,
   /* L’image de partage vient de `app/opengraph-image.png` ; Twitter la reprend. */
   twitter: { card: "summary_large_image" },
 };

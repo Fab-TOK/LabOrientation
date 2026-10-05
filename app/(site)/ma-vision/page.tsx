@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ButtonLink } from "@/components/ui/Button";
 import { routes } from "@/content/site";
+import { pageAddress } from "@/lib/metadata";
 import {
   visionCommitment,
   visionConclusion,
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   title: "Ma vision de l’orientation",
   description:
     "Une orientation réussie repose sur l’équilibre de trois dimensions : les aspirations, les aptitudes et la réalité des parcours.",
-  alternates: { canonical: routes.vision },
+  ...pageAddress(routes.vision),
 };
 
 export default function VisionPage() {
@@ -81,7 +82,7 @@ export default function VisionPage() {
               {visionCommitment.text}
             </p>
           </div>
-          <ButtonLink href={routes.booking} block className="flex-none nav:w-auto">
+          <ButtonLink href={routes.contact} block className="flex-none nav:w-auto">
             <span className="nav:hidden">Réserver mes 20 min offertes</span>
             <span className="hidden nav:inline">Réserver mon entretien gratuit de 20 minutes</span>
           </ButtonLink>
