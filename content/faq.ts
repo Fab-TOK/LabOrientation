@@ -4,9 +4,14 @@
  * Réponses fournies par la cliente, corrigées pour l’orthographe, les accords
  * et la ponctuation seulement. NE PAS LES RÉÉCRIRE.
  *
+ * Seule exception, demandée : « Combien coûte un accompagnement ? » est mise en
+ * accord avec les tarifs affichés, et ses montants viennent de `site.pricing`.
+ *
  * Une question sans `answer` s’affiche avec la mention d’attente et reste hors
  * du balisage pour les moteurs : écrire `answer` suffit à la publier.
  */
+
+import { fromPrice, site } from "@/content/site";
 
 export type FaqItem = {
   id: string;
@@ -22,6 +27,8 @@ export type FaqSection = {
 };
 
 export const FAQ_PENDING_ANSWER = "Réponse à venir.";
+
+const [benin, international] = site.pricing.zones;
 
 export const faqSections: FaqSection[] = [
   {
@@ -44,8 +51,7 @@ export const faqSections: FaqSection[] = [
       {
         id: "cout-accompagnement",
         question: "Combien coûte un accompagnement ?",
-        answer:
-          "Suite à l’entretien préalable gratuit, les tarifs seront envoyés. Il existe plusieurs formules d’accompagnement, chacune adaptée aux besoins spécifiques de l’élève et à son niveau de classe.",
+        answer: `L’entretien préalable de ${site.freeSessionMinutes} minutes est gratuit. Il existe ensuite plusieurs formules d’accompagnement, chacune adaptée aux besoins spécifiques de l’élève et à son niveau de classe. Au Bénin, la séance est ${fromPrice(benin.session)} et un parcours ${fromPrice(benin.parcours)}. À l’international, la séance est ${fromPrice(international.session)} et un parcours ${fromPrice(international.parcours)}. Le tarif exact vous est précisé lors de cet entretien.`,
       },
     ],
   },

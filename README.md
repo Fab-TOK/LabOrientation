@@ -47,11 +47,14 @@ Tout le texte vit dans `content/`, jamais dans les composants :
 | `whatsapp.ts` | Les messages WhatsApp déjà rédigés de la page Contact |
 | `phone-countries.ts` | Pays et indicatifs du champ « Numéro WhatsApp », liste figée |
 | `structured-data.ts` | Les données schema.org, dérivées des deux fichiers ci-dessus |
+| `photos/` | La photo de Johana, affichée par `components/ui/JohanaPhoto.tsx` |
 
 Quatre textes sont **repris mot pour mot** et ne doivent pas être réécrits : la présentation
 de Johana, les six témoignages (y compris les particularités d’orthographe de celui de
 M. Capo, décision assumée), les questions de FAQ et les paragraphes de description des
 parcours 1 à 3 dans `formulas.ts`, gardés même là où la nouvelle maquette les raccourcit.
+Seule exception, la réponse « Combien coûte un accompagnement ? » : elle est construite à
+partir des tarifs de `site.ts`, pour ne jamais contredire les prix affichés.
 
 ### La gamme
 
@@ -179,17 +182,6 @@ Chaque page publique porte sa propre URL canonique, pour qu’un paramètre de c
 ⚠️ **Le balisage de FAQ ne déclare que les questions réellement répondues.** Les douze le sont
 aujourd’hui. Une question ajoutée sans `answer` s’afficherait avec « Réponse à venir » et
 resterait hors du balisage : annoncer une réponse absente à un moteur serait faux.
-
-## Reste à obtenir de la cliente
-
-1. **Les photographies** — hero de l’accueil, section Qui suis-je ?, hero de la page
-   Qui suis-je ?. Les emplacements sont réservés aux bonnes proportions
-   (`components/ui/PhotoPlaceholder.tsx`) ; il suffira de remplacer le composant par un
-   `next/image`. Les témoignages, eux, n’attendent plus d’image : ils portent l’initiale de
-   leur auteur sur les deux pages.
-2. **Le mot de passe de la boîte johana@laborientation.com**, à saisir par la cliente
-   elle-même dans Vercel (voir « Formulaire de contact et e-mails »), et l’alias
-   contact@laborientation.com à créer dans hPanel.
 
 ## Décisions d’arbitrage
 

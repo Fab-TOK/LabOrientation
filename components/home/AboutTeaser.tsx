@@ -1,16 +1,13 @@
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/Bits";
-import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
+import { JohanaPhoto } from "@/components/ui/JohanaPhoto";
 import { johanaChips, johanaTeaser } from "@/content/johana";
 import { routes } from "@/content/site";
 
 export function AboutTeaser() {
   return (
     <section className="gutter grid items-center gap-6 pt-[34px] pb-[30px] nav:grid-cols-[0.85fr_1.15fr] nav:gap-[52px] nav:py-[72px]">
-      <PhotoPlaceholder
-        label="photo en consultation"
-        className="hidden h-[400px] rounded-[18px] nav:flex"
-      />
+      <JohanaPhoto className="hidden h-[clamp(400px,29vw,600px)] rounded-[18px] nav:block" />
 
       <div>
         <Eyebrow>Qui suis-je ?</Eyebrow>

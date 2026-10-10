@@ -5,6 +5,9 @@ import { em, strong, type Paragraph } from "./rich-text";
  *
  * NE PAS RÉÉCRIRE. Fourni par la cliente et repris mot pour mot, y compris
  * les passages en gras et en italique.
+ *
+ * ` ` : espace insécable, pour que « 1 000 » ne se coupe jamais en fin
+ * de ligne, ni « + » de « de ».
  */
 
 export const johanaHero = {
@@ -13,7 +16,7 @@ export const johanaHero = {
   role: "Conseillère d’orientation et fondatrice de Lab’Orientation.",
   stats: [
     { value: "11 ans", label: "en orientation scolaire et universitaire" },
-    { value: "+ de 1 000", label: "élèves guidés dans les moments clés" },
+    { value: "+ de 1 000", label: "élèves guidés dans les moments clés" },
     { value: "5", label: "régions du monde vécues de l’intérieur" },
   ],
 };
@@ -50,7 +53,7 @@ export const johanaIntro: Paragraph[] = [
   ],
   [
     "J’ai ainsi eu la chance de guider ",
-    strong("plus de 1 000 élèves"),
+    strong("plus de 1 000 élèves"),
     " dans les moments clés de leur parcours : choix de spécialités, construction du projet d’études, orientation vers le supérieur, ",
     strong("Parcoursup, dossiers de candidature"),
     " ou réorientation.",

@@ -20,7 +20,10 @@ export default function NotFound() {
     <SiteLayout>
       <section className="gutter pt-10 pb-16 nav:pt-[90px] nav:pb-[120px]">
         <Eyebrow>Page introuvable</Eyebrow>
-        <h1 className="t-h1-page mt-3 max-w-[16ch] nav:mt-4">Cette page est introuvable</h1>
+        {/* `text-wrap` remplace l’équilibrage des titres : sur téléphone, il
+            couperait en « Cette page / est introuvable » alors que « est »
+            tient sur la première ligne. */}
+        <h1 className="t-h1-page mt-3 text-wrap nav:mt-4">Cette page est introuvable</h1>
         <p className="mt-4 max-w-[52ch] text-[14.5px]/[1.7] text-slate/80 text-pretty nav:mt-[18px] nav:text-[17px]">
           L’adresse est peut-être mal saisie, ou la page a changé de place. Repartez de
           l’accueil, ou allez directement à ce qui vous intéresse.

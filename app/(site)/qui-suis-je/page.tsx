@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow, Label } from "@/components/ui/Bits";
-import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
+import { JohanaPhoto } from "@/components/ui/JohanaPhoto";
 import { RichText } from "@/components/ui/RichText";
 import {
   johanaClosing,
@@ -40,18 +40,22 @@ export default function AboutPage() {
             {johanaHero.role}
           </p>
 
-          <PhotoPlaceholder
-            label="portrait de Johana"
-            className="mt-5 h-[260px] rounded-[16px] nav:hidden"
+          <JohanaPhoto
+            priority
+            className="mt-5 h-[260px] rounded-[16px] min-[400px]:h-auto min-[400px]:aspect-[6/5] nav:hidden"
           />
 
           <dl className="mt-5 flex gap-4 border-t border-slate/14 pt-5 nav:mt-[30px] nav:gap-[26px] nav:pt-[26px]">
+            {/* Le troisième chiffre est masqué sur téléphone avec son séparateur. */}
             {johanaHero.stats.map((stat, index) => (
-              <div key={stat.value} className="flex gap-4 nav:gap-[26px]">
+              <div
+                key={stat.value}
+                className={cn("flex gap-4 nav:gap-[26px]", index === 2 && "max-nav:hidden")}
+              >
                 {index > 0 && (
                   <span className="w-px flex-none bg-slate/14" aria-hidden="true" />
                 )}
-                <div className={index === 2 ? "hidden nav:block" : ""}>
+                <div>
                   <dt className="font-serif text-[26px]/none text-terracotta nav:text-[34px]">
                     {stat.value}
                   </dt>
@@ -64,9 +68,9 @@ export default function AboutPage() {
           </dl>
         </div>
 
-        <PhotoPlaceholder
-          label="portrait de Johana"
-          className="hidden h-[380px] rounded-[18px] nav:flex"
+        <JohanaPhoto
+          priority
+          className="hidden h-[clamp(380px,30vw,620px)] rounded-[18px] nav:block"
         />
       </section>
 

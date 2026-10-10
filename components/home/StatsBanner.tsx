@@ -10,7 +10,8 @@ const stats = [
       "d’expérience en orientation scolaire et universitaire, notamment en lycées français à l’étranger du réseau AEFE",
   },
   {
-    prefix: "+ de ",
+    /* ` ` : « + » ne se sépare jamais de « de ». */
+    prefix: "+ de ",
     count: 1000,
     label:
       "jeunes guidés dans les moments clés de leur parcours, du choix de spécialités à Parcoursup",

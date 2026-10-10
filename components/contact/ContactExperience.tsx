@@ -105,7 +105,10 @@ export function ContactExperience({ initialFormula }: { initialFormula: string }
           </p>
         </div>
         <p className="inline-flex items-center gap-[9px] justify-self-start rounded-full bg-peach px-[14px] py-[9px] text-[13px]/none font-semibold nav:gap-[10px] nav:px-4 nav:py-[10px] nav:text-[13.5px]">
-          <span aria-hidden="true" className="size-[6px] rounded-full bg-terracotta nav:size-[7px]" />
+          <span
+            aria-hidden="true"
+            className="dot-halo size-[6px] flex-none rounded-full bg-terracotta nav:size-[7px]"
+          />
           Gratuit et sans engagement
         </p>
       </section>

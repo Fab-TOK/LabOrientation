@@ -17,12 +17,14 @@ export function CtaCard() {
             <span className="nav:hidden">Réserver mes 20 min offertes</span>
             <span className="hidden nav:inline">Réserver mon entretien gratuit de 20 minutes</span>
           </ButtonLink>
+          {/* Sans bordure : l’ardoise transparente du bouton secondaire
+              ressortait en bleu-vert autour du blanc, sur le fond pêche. */}
           <ButtonLink
             href={site.whatsapp}
             external
             variant="secondary"
             block
-            className="bg-white nav:w-auto"
+            className="border-transparent bg-white nav:w-auto"
           >
             Écrire sur WhatsApp
           </ButtonLink>

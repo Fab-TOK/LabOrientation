@@ -1,6 +1,6 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { CheckPill } from "@/components/ui/Bits";
-import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
+import { JohanaPhoto } from "@/components/ui/JohanaPhoto";
 import { routes, site } from "@/content/site";
 
 export function Hero() {
@@ -71,9 +71,9 @@ export function Hero() {
           className="anim-frame absolute inset-[18px_-14px_-18px_18px] hidden rounded-[20px] bg-turquoise nav:block"
           aria-hidden="true"
         />
-        <PhotoPlaceholder
-          label="photo pro de Johana · portrait vertical"
-          className="anim-settle relative h-[280px] rounded-[16px] nav:h-[450px] nav:rounded-[20px]"
+        <JohanaPhoto
+          priority
+          className="anim-settle h-[280px] rounded-[16px] min-[400px]:h-auto min-[400px]:aspect-[6/5] nav:aspect-auto nav:h-[clamp(450px,32vw,640px)] nav:rounded-[20px]"
         />
       </div>
     </section>

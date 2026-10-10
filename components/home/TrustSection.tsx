@@ -3,7 +3,8 @@ const proofs = [
     label: "Expérience",
     text: "Onze années dans le conseil en orientation, auprès des élèves comme des familles.",
   },
-  { label: "Volume", text: "Plus de 1 000 jeunes accompagnés, du collège au post-bac." },
+  /* ` ` : « 1 000 » ne se coupe jamais en fin de ligne. */
+  { label: "Volume", text: "Plus de 1 000 jeunes accompagnés, du collège au post-bac." },
   {
     label: "Systèmes scolaires",
     text: "Un accompagnement sur les parcours internationaux. Une expertise des parcours français, réseau AEFE compris.",

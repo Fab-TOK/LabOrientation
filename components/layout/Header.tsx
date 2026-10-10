@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { desktopNav } from "@/content/navigation";
 import { routes, site } from "@/content/site";
 import { cn } from "@/lib/cn";
@@ -12,6 +12,14 @@ import { MobileMenu } from "./MobileMenu";
 export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  /* À la fermeture, le focus revient au bouton qui a ouvert le menu. Fonction
+     stable : le menu en dépend pour ses écouteurs. */
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    menuButton.current?.focus();
+  }, []);
 
   return (
     <header className="border-b border-slate/10 bg-cream">
@@ -72,6 +80,7 @@ export function Header() {
         </div>
 
         <button
+          ref={menuButton}
           type="button"
           onClick={() => setMenuOpen(true)}
           aria-label="Ouvrir le menu"
@@ -83,7 +92,7 @@ export function Header() {
         </button>
       </div>
 
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} pathname={pathname} />
+      <MobileMenu open={menuOpen} onClose={closeMenu} pathname={pathname} />
     </header>
   );
 }
