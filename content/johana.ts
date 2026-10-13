@@ -7,7 +7,8 @@ import { em, strong, type Paragraph } from "./rich-text";
  * les passages en gras et en italique.
  *
  * ` ` : espace insécable, pour que « 1 000 » ne se coupe jamais en fin
- * de ligne, ni « + » de « de ».
+ * de ligne, ni « + » de « de », ni « 11 » de « ans » dans les cartes de
+ * chiffres.
  */
 
 export const johanaHero = {
@@ -15,7 +16,7 @@ export const johanaHero = {
   name: "Johana Ghionda",
   role: "Conseillère d’orientation et fondatrice de Lab’Orientation.",
   stats: [
-    { value: "11 ans", label: "en orientation scolaire et universitaire" },
+    { value: "11 ans", label: "en orientation scolaire et universitaire" },
     { value: "+ de 1 000", label: "élèves guidés dans les moments clés" },
     { value: "5", label: "régions du monde vécues de l’intérieur" },
   ],

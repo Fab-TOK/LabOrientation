@@ -5,22 +5,18 @@ import { cn } from "@/lib/cn";
 /**
  * La photo de Johana, dans un cadre dont chaque emplacement fixe la taille.
  *
- * La photo est en portrait (1620 × 2160) et les cadres sont plus larges que
- * hauts : `object-position` garde le visage, des lunettes au menton, quelle que
- * soit la découpe, tant que le cadre n’est pas trop large pour sa hauteur :
- * - sur téléphone (moins de 400 px), une hauteur fixe suffit ;
- * - en une colonne à partir de 400 px, le cadre garde la forme 6/5
- *   (`aspect-[6/5]`) : avec une hauteur fixe, une tablette n’en montrerait plus
- *   que les yeux ;
- * - en deux colonnes (`nav`), sa hauteur grandit avec l’écran (`clamp`), pour
- *   la même raison sur les grands écrans.
+ * La photo est en portrait (1620 × 2160) et les cadres sont verticaux, en 4/5
+ * (`aspect-[4/5]`) : on la voit presque entière, visage, buste et bureau. Un
+ * cadre plus large que haut n’en garderait que le visage. Seule exception,
+ * le haut de l’accueil : carré, pour que la photo y reste moins haute.
+ * - téléphone : toute la largeur ; tablette : 440 px au plus, centrée ;
+ * - ordinateur : en haut de l’accueil, toute la colonne (540 px au plus) ;
+ *   plus bas sur l’accueil, 86 % de la colonne (480 px au plus) ; sur la page
+ *   Qui suis-je, hauteur fixée.
  *
- * Pas de `min-h` avec `aspect-[6/5]` : la hauteur minimale imposerait aussi une
- * largeur minimale (280 px de haut donnent 336 px de large), et la photo
- * déborderait d’un écran de 320 px.
- *
- * `sizes` est le même partout : le navigateur choisit la même version de
- * l’image sur toutes les pages et ne la télécharge qu’une fois.
+ * `sizes` suit ces largeurs et reste le même partout : le navigateur choisit
+ * la même version de l’image sur toutes les pages et ne la télécharge qu’une
+ * fois.
  *
  * Pour changer de photo, remplacer `content/photos/johana-ghionda.jpg` ; si le
  * visage n’est plus au même endroit, ajuster `object-position`.
@@ -39,7 +35,7 @@ export function JohanaPhoto({
         src={johanaPhoto}
         alt="Johana Ghionda, conseillère d’orientation, à son bureau"
         fill
-        sizes="(min-width: 900px) 45vw, 100vw"
+        sizes="(min-width: 1380px) 540px, (min-width: 900px) 40vw, (min-width: 480px) 440px, 100vw"
         priority={priority}
         placeholder="blur"
         className="object-cover object-[50%_28%]"

@@ -66,14 +66,18 @@ export function Hero() {
         </p>
       </div>
 
-      <div className="relative mt-[22px] nav:mt-0">
+      {/* Photo carrée, la seule du site (les autres sont en 4/5) : moins haute,
+          elle ne dépasse pas le texte. Sur ordinateur, la photo et son cadre
+          turquoise prennent toute la colonne, calés du côté du texte, sans
+          dépasser 540 px ni la hauteur de l’écran, pour rester entiers. */}
+      <div className="relative mt-[22px] nav:mt-0 nav:w-[min(100%,540px,max(320px,100svh_-_190px))]">
         <div
           className="anim-frame absolute inset-[18px_-14px_-18px_18px] hidden rounded-[20px] bg-turquoise nav:block"
           aria-hidden="true"
         />
         <JohanaPhoto
           priority
-          className="anim-settle h-[280px] rounded-[16px] min-[400px]:h-auto min-[400px]:aspect-[6/5] nav:aspect-auto nav:h-[clamp(450px,32vw,640px)] nav:rounded-[20px]"
+          className="anim-settle mx-auto aspect-square w-full max-w-[440px] rounded-[16px] nav:max-w-none nav:rounded-[20px]"
         />
       </div>
     </section>

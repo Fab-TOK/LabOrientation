@@ -7,7 +7,8 @@ import { routes } from "@/content/site";
 export function AboutTeaser() {
   return (
     <section className="gutter grid items-center gap-6 pt-[34px] pb-[30px] nav:grid-cols-[0.85fr_1.15fr] nav:gap-[52px] nav:py-[72px]">
-      <JohanaPhoto className="hidden h-[clamp(400px,29vw,600px)] rounded-[18px] nav:block" />
+      {/* 86 % de la colonne, centrée. */}
+      <JohanaPhoto className="mx-auto hidden aspect-[4/5] w-[86%] max-w-[480px] rounded-[18px] nav:block" />
 
       <div>
         <Eyebrow>Qui suis-je ?</Eyebrow>

@@ -32,7 +32,9 @@ const bodyParagraph =
 export default function AboutPage() {
   return (
     <>
-      <section className="gutter grid items-center gap-6 border-b border-slate/10 pt-7 pb-8 nav:grid-cols-[1fr_0.8fr] nav:gap-[52px] nav:pt-[60px] nav:pb-12">
+      {/* Sur ordinateur, la colonne de la photo prend la largeur de la photo ;
+          le texte et ses cartes occupent le reste, jusqu’à elle. */}
+      <section className="gutter grid items-center gap-6 border-b border-slate/10 pt-7 pb-8 nav:grid-cols-[minmax(0,1fr)_auto] nav:gap-14 nav:pt-[60px] nav:pb-12">
         <div>
           <Eyebrow>{johanaHero.eyebrow}</Eyebrow>
           <h1 className="t-h1-page mt-3 nav:mt-4 nav:text-[62px]/[1.02]">{johanaHero.name}</h1>
@@ -42,24 +44,28 @@ export default function AboutPage() {
 
           <JohanaPhoto
             priority
-            className="mt-5 h-[260px] rounded-[16px] min-[400px]:h-auto min-[400px]:aspect-[6/5] nav:hidden"
+            className="mx-auto mt-5 aspect-[4/5] w-full max-w-[440px] rounded-[16px] nav:hidden"
           />
 
-          <dl className="mt-5 flex gap-4 border-t border-slate/14 pt-5 nav:mt-[30px] nav:gap-[26px] nav:pt-[26px]">
-            {/* Le troisième chiffre est masqué sur téléphone avec son séparateur. */}
+          {/* Téléphone : deux chiffres sous un filet, séparés d’un trait ; le
+              troisième est masqué avec son trait. Ordinateur : trois cartes. */}
+          <dl className="mt-5 flex gap-4 border-t border-slate/14 pt-5 nav:mt-[30px] nav:grid nav:grid-cols-3 nav:gap-[10px] nav:border-t-0 nav:pt-0 xl:gap-[14px]">
             {johanaHero.stats.map((stat, index) => (
               <div
                 key={stat.value}
-                className={cn("flex gap-4 nav:gap-[26px]", index === 2 && "max-nav:hidden")}
+                className={cn(
+                  "flex gap-4 nav:block nav:min-w-0 nav:rounded-[16px] nav:border nav:border-slate/14 nav:bg-offwhite nav:px-[18px] nav:py-4 xl:px-6 xl:py-[22px]",
+                  index === 2 && "max-nav:hidden",
+                )}
               >
                 {index > 0 && (
-                  <span className="w-px flex-none bg-slate/14" aria-hidden="true" />
+                  <span className="w-px flex-none bg-slate/14 nav:hidden" aria-hidden="true" />
                 )}
                 <div>
-                  <dt className="font-serif text-[26px]/none text-terracotta nav:text-[34px]">
+                  <dt className="font-serif text-[26px]/none text-terracotta nav:text-[28px] xl:text-[40px]">
                     {stat.value}
                   </dt>
-                  <dd className="mt-[5px] max-w-[20ch] text-[12.5px]/[1.45] text-slate/70 nav:text-[13px]">
+                  <dd className="mt-[5px] max-w-[20ch] text-[12.5px]/[1.45] text-slate/70 nav:mt-2 nav:max-w-none nav:text-[13px]">
                     {stat.label}
                   </dd>
                 </div>
@@ -68,9 +74,10 @@ export default function AboutPage() {
           </dl>
         </div>
 
+        {/* Hauteur fixée, largeur déduite de la forme 4/5. */}
         <JohanaPhoto
           priority
-          className="hidden h-[clamp(380px,30vw,620px)] rounded-[18px] nav:block"
+          className="hidden aspect-[4/5] h-[clamp(380px,30vw,620px)] rounded-[18px] nav:block"
         />
       </section>
 
