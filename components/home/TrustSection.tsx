@@ -22,7 +22,8 @@ export function TrustSection() {
     <section className="bg-slate text-cream">
       <div className="gutter section-y grid items-start gap-6 nav:grid-cols-[0.95fr_1.2fr] nav:gap-14">
         <div>
-          <div className="t-eyebrow text-peach">Pourquoi me faire confiance</div>
+          {/* ` ` : le « ? » ne passe jamais seul à la ligne. */}
+          <div className="t-eyebrow text-peach">Pourquoi me faire confiance ?</div>
           <h2 className="t-h2 mt-3 max-w-[17ch] nav:mt-[14px]">
             Une expertise et un accompagnement humain
           </h2>
